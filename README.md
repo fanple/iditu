@@ -4,7 +4,7 @@ Iditu---Location Map
 Webserver
 -----------------------------------
 ### component
-		1.Base on [Spacebuilder](http://www.spacebuilder.cn) V4.1sp1(ASP.NET MVC3)
+		1.Base on [Spacebuilder](http://www.spacebuilder.cn))<br /> V4.1sp1(ASP.NET MVC3)
 		2.Use MySql as database.In the folder Other/database/
 
 
