@@ -74,3 +74,79 @@ Version: '5.7.1-m11'  socket: ''  port: 3306  MySQL Community Server (GPL)
 2013-12-05 22:18:36 3928 [Note] Shutting down plugin 'binlog'
 2013-12-05 22:18:36 3928 [Note] D:\Program Files\upupw\MySQL\bin\mysqld.exe: Shutdown complete
 
+2013-12-15 20:47:40 4388 [Note] Plugin 'FEDERATED' is disabled.
+2013-12-15 20:47:40 4388 [Note] InnoDB: The InnoDB memory heap is disabled
+2013-12-15 20:47:40 4388 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2013-12-15 20:47:40 4388 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2013-12-15 20:47:40 4388 [Note] InnoDB: Not using CPU crc32 instructions
+2013-12-15 20:47:40 4388 [Note] InnoDB: Initializing buffer pool, total size = 128.0M, instances = 1
+2013-12-15 20:47:40 4388 [Note] InnoDB: Completed initialization of buffer pool
+2013-12-15 20:47:40 4388 [Note] InnoDB: Highest supported file format is Barracuda.
+2013-12-15 20:47:42 4388 [Note] InnoDB: Creating shared tablespace for temporary tables
+2013-12-15 20:47:42 4388 [Note] InnoDB: Setting file ".\ibtmp1" size to 12 MB
+2013-12-15 20:47:42 4388 [Note] InnoDB: Database physically writes the file full: wait ...
+2013-12-15 20:47:42 4388 [Note] InnoDB: 128 rollback segment(s) are active.
+2013-12-15 20:47:42 4388 [Note] InnoDB: Waiting for purge to start
+2013-12-15 20:47:42 4388 [Note] InnoDB: 5.7.1 started; log sequence number 5128411
+2013-12-15 20:47:42 4388 [Note] Server hostname (bind-address): '*'; port: 3306
+2013-12-15 20:47:42 4388 [Note] IPv6 is available.
+2013-12-15 20:47:42 4388 [Note]   - '::' resolves to '::';
+2013-12-15 20:47:42 4388 [Note] Server socket created on IP: '::'.
+2013-12-15 20:47:48 4388 [Note] Event Scheduler: Loaded 0 events
+2013-12-15 20:47:48 4388 [Note] D:\Program Files\upupw\MySQL\bin\mysqld.exe: ready for connections.
+Version: '5.7.1-m11'  socket: ''  port: 3306  MySQL Community Server (GPL)
+2013-12-15 22:02:02 4388 [Note] D:\Program Files\upupw\MySQL\bin\mysqld.exe: Normal shutdown
+
+2013-12-15 22:02:03 4388 [Note] Giving 0 client threads a chance to die gracefully
+2013-12-15 22:02:03 4388 [Note] Shutting down slave threads
+2013-12-15 22:02:03 4388 [Note] Forcefully disconnecting 0 remaining clients
+2013-12-15 22:02:03 4388 [Note] Event Scheduler: Purging the queue. 0 events
+2013-12-15 22:02:03 4388 [Note] Binlog end
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'partition'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'PERFORMANCE_SCHEMA'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_SYS_DATAFILES'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_SYS_TABLESPACES'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_SYS_FOREIGN_COLS'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_SYS_FOREIGN'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_SYS_FIELDS'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_SYS_COLUMNS'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_SYS_INDEXES'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_SYS_TABLESTATS'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_SYS_TABLES'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_FT_INDEX_TABLE'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_FT_INDEX_CACHE'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_FT_CONFIG'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_FT_BEING_DELETED'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_FT_DELETED'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_FT_DEFAULT_STOPWORD'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_METRICS'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_TEMP_TABLE_INFO'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_BUFFER_POOL_STATS'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_BUFFER_PAGE_LRU'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_BUFFER_PAGE'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_CMP_PER_INDEX_RESET'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_CMP_PER_INDEX'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_CMPMEM_RESET'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_CMPMEM'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_CMP_RESET'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_CMP'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_LOCK_WAITS'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_LOCKS'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'INNODB_TRX'
+2013-12-15 22:02:13 4388 [Note] Shutting down plugin 'InnoDB'
+2013-12-15 22:02:13 4388 [Note] InnoDB: FTS optimize thread exiting.
+2013-12-15 22:02:13 4388 [Note] InnoDB: Starting shutdown...
+2013-12-15 22:02:44 4388 [Note] InnoDB: Shutdown completed; log sequence number 5157627
+2013-12-15 22:02:44 4388 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+2013-12-15 22:02:44 4388 [Note] Shutting down plugin 'BLACKHOLE'
+2013-12-15 22:02:44 4388 [Note] Shutting down plugin 'ARCHIVE'
+2013-12-15 22:02:44 4388 [Note] Shutting down plugin 'MRG_MYISAM'
+2013-12-15 22:02:44 4388 [Note] Shutting down plugin 'MyISAM'
+2013-12-15 22:02:44 4388 [Note] Shutting down plugin 'MEMORY'
+2013-12-15 22:02:44 4388 [Note] Shutting down plugin 'CSV'
+2013-12-15 22:02:44 4388 [Note] Shutting down plugin 'sha256_password'
+2013-12-15 22:02:44 4388 [Note] Shutting down plugin 'mysql_old_password'
+2013-12-15 22:02:44 4388 [Note] Shutting down plugin 'mysql_native_password'
+2013-12-15 22:02:44 4388 [Note] Shutting down plugin 'binlog'
+2013-12-15 22:02:46 4388 [Note] D:\Program Files\upupw\MySQL\bin\mysqld.exe: Shutdown complete
+
