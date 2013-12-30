@@ -1,12 +1,12 @@
 ﻿@model  IEnumerable<User>
 @{    
-    Dictionary<long, bool> isCurrentUserFollowDic = ViewData.Get<Dictionary<long, bool>>("isCurrentUserFollowDic", null);
     Dictionary<long, string> interestedDic = ViewData["interestedDic"] as Dictionary<long, string>;
     Dictionary<long, IEnumerable<long>> followedUserIdDic = ViewData["followedUserIdDic"] as Dictionary<long, IEnumerable<long>>;
     Dictionary<long, User> followedUserDic = ViewData["followedUserDic"] as Dictionary<long, User>;
     Dictionary<long, IEnumerable<string>> companyNameDic = ViewData["companyNameDic"] as Dictionary<long, IEnumerable<string>>;
     Dictionary<long, IEnumerable<string>> schoolNameDic = ViewData["schoolNameDic"] as Dictionary<long, IEnumerable<string>>;
     Dictionary<long, IEnumerable<string>> tagNameDic = ViewData["tagNameDic"] as Dictionary<long, IEnumerable<string>>;
+    var currentUser = UserContext.CurrentUser;
 
     int pageSize = ViewData.Get<int>("pageSize", 5);
 }
@@ -15,9 +15,9 @@
     <div class="tn-box tn-widget tn-widget-content tn-corner-all spb-maybe">
         <div class="tn-box-header tn-widget-header tn-corner-top tn-border-bottom">
             <div class="tn-option">
-                <a href="@SiteUrls.Instance().FindUserInterested()">更多</a></div>
-            <h3 class="tn-helper-reset">
-                可能感兴趣的人</h3>
+                <a href="@SiteUrls.Instance().FindUserInterested()">更多</a>
+            </div>
+            <h3 class="tn-helper-reset">可能感兴趣的人</h3>
         </div>
         <div class="tn-box-content tn-widget-content tn-corner-bottom">
             <ul class="tn-list">
@@ -33,7 +33,7 @@
                                 <h5>
                                     @Html.Link(StringUtility.Trim(user.DisplayName, 5), SiteUrls.Instance().SpaceHome(user.UserName), user.DisplayName, navigateTarget: HyperLinkTarget._blank)
                                 </h5>
-                                @if (isCurrentUserFollowDic != null && (UserContext.CurrentUser == null || (UserContext.CurrentUser != null && UserContext.CurrentUser.UserId != user.UserId)))
+                                    @if (currentUser != null && !currentUser.IsFollowed(user.UserId))
                                 {
                                     <span class="tn-actions" id="followedDiv">
                                         @Html.FollowUser(user.UserId, "加关注")
@@ -52,13 +52,11 @@
                                 }
                                 else if ("WithCompanys".Equals(interested))
                                 {
-                                    <a class="tn-secondary-text show-bubble" href="#" data-bubble-id="bubble-@(user.UserId)">
-                                        供职于同一公司</a>
+                                    <a class="tn-secondary-text show-bubble" href="#" data-bubble-id="bubble-@(user.UserId)">供职于同一公司</a>
                                 }
                                 else if ("WithSchools".Equals(interested))
                                 {
-                                    <a class="tn-secondary-text show-bubble" href="#" data-bubble-id="bubble-@(user.UserId)">
-                                        毕业于同一学校</a>
+                                    <a class="tn-secondary-text show-bubble" href="#" data-bubble-id="bubble-@(user.UserId)">毕业于同一学校</a>
                                 }
                                 else if ("WithTags".Equals(interested))
                                 {
@@ -71,8 +69,7 @@
                         <div id="bubble-@(user.UserId)" class="tn-widget tn-bubble tn-bubble-arrow-top" @if (i > 0)
                                                                                                         { <text>style="display:none;"</text>}>
                             <div class="tn-bubble-arrow">
-                                <b class="tn-arrow-b1 tn-border-gray"></b><b class="tn-arrow-b2 tn-widget-bubble">
-                                </b>
+                                <b class="tn-arrow-b1 tn-border-gray"></b><b class="tn-arrow-b2 tn-widget-bubble"></b>
                             </div>
                             <div class="tn-bubble-content tn-widget-content tn-border-gray tn-corner-all">
                                 <p>
@@ -129,7 +126,8 @@
                 }
             </ul>
             <div class="tn-change">
-                <a href="#" id="load-another-page-interested">换一换</a></div>
+                <a href="#" id="load-another-page-interested">换一换</a>
+            </div>
         </div>
     </div>
     <script type="text/javascript">

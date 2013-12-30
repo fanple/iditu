@@ -1852,8 +1852,9 @@
             if (elem.nodeName) {
                 var match = jQuery.noData[elem.nodeName.toLowerCase()];
 
+                //yulf 2013/12/11 ie11双击上传头像问题
                 if (match) {
-                    return !(match === true || elem.getAttribute("classid") !== match);
+                    return !(match === true || elem.classid !== match);
                 }
             }
 
@@ -4693,7 +4694,7 @@
 
                 ID: function (elem, match) {
                     //2013-02-03,libsh,解决在IE下uploadify在IE内核浏览器需要双击问题
-                    var id = document.all ? elem.id : elem.getAttribute("id");
+                    var id =document.all==undefined|| document.all.tags["div"] == undefined ? elem.id : elem.getAttribute("id");
                     return elem.nodeType === 1 && id === match;
                 },
 

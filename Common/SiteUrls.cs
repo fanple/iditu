@@ -539,6 +539,15 @@ namespace Spacebuilder.Common
             return CachedUrlHelper.Action("_AccountBinding", "UserSpaceSettings", CommonAreaName, dic);
         }
 
+        /// <summary>
+        /// 跳过第三方账号注册
+        /// </summary>
+        /// <returns></returns>
+        public string JumpThirdRegister()
+        {
+            return CachedUrlHelper.Action("JumpThirdRegister", "Account", CommonAreaName);
+        }
+
         #endregion
 
         #region 用户空间（UserSpace）

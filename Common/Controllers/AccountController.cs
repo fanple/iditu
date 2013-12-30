@@ -228,18 +228,6 @@ namespace Spacebuilder.Common
                 //异步发送
                 sendEmailSuccess = emailService.SendAsyn(mailMessage, false);
 
-
-
-
-
-
-
-
-
-
-
-
-
             }
             catch (Exception ex)
             {
@@ -247,11 +235,6 @@ namespace Spacebuilder.Common
             }
 
             #endregion
-
-
-
-
-
 
             if (userSettings.AccountActivation == AccountActivation.Automatic)
             {
@@ -979,6 +962,26 @@ namespace Spacebuilder.Common
         }
 
         /// <summary>
+        /// 验证第三方用户名是否可用
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult ValidateThirdUserName(string userName)
+        {
+            //判断当前用户是否存在
+            IUser user = UserContext.CurrentUser;
+            if (user == null)
+                return Json("请登录", JsonRequestBehavior.AllowGet);
+
+            //验证用户名是否重复，如果当前用户名和要验证的用户名一样则直接返回true
+            string errorMessage;
+            bool valid = Utility.ValidateUserName(userName, out errorMessage);
+            if (valid || user.UserName.Equals(userName, StringComparison.CurrentCultureIgnoreCase))
+                return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(errorMessage, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// 验证密码的方法
         /// </summary>
         /// <returns></returns>
@@ -1605,6 +1608,108 @@ namespace Spacebuilder.Common
             }
 
             return RegisterJumpByconfig(user);
+        }
+
+        /// <summary>
+        /// 跳过第三方注册
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult JumpThirdRegister()
+        {
+            ThirdUser thirdUser = TempData.Get<ThirdUser>("thirdCurrentUser", null);
+            TempData["thirdCurrentUser"] = thirdUser;
+            if (thirdUser != null && new AccountBindingService().GetUserId(thirdUser.AccountTypeKey, thirdUser.Identification) > 0)
+                return Redirect(SiteUrls.Instance().SystemMessage(TempData, new SystemMessageViewModel
+                {
+                    Title = "重复绑定",
+                    Body = "已经有网站帐号绑定过，不允许重复绑定第三方帐号",
+                    StatusMessageType = StatusMessageType.Hint
+                }));
+
+            //创建用户，并且将对应用的用户与第三方账户绑定。
+            UserCreateStatus userCreateStatus = UserCreateStatus.UnknownFailure;
+            User user = Spacebuilder.Common.User.New();
+
+            //生成用户名
+            user.UserId = IdGenerator.Next();
+            string userName = thirdUser.NickName;
+            string thirUserName = "jinhu_" + userName;
+            if (UserIdToUserNameDictionary.GetUserId(userName) <= 0)
+                user.UserName = userName;
+            else if (UserIdToUserNameDictionary.GetUserId(userName) <= 0)
+                user.UserName = thirUserName;
+            else
+                user.UserName = user.UserId.ToString();
+
+            //随机密码
+            string password = string.Empty;
+            string pwdchars = "abcdefghijklmnopqrstuvwxyz0123456789";
+            int iRandNum;
+            Random rnd = new Random();
+            for (int i = 0; i < 6; i++)
+            {
+                iRandNum = rnd.Next(pwdchars.Length);
+                password += pwdchars[iRandNum];
+            }
+            user.Password = password;
+
+            // 和用户名一样
+            user.NickName = user.UserName;
+            user.AccountEmail = string.Empty;
+            user.IsActivated = userSettings.AccountActivation == AccountActivation.Automatic;
+
+            //创建用户
+            membershipService.CreateUser(user, password, out userCreateStatus);
+            if (userCreateStatus != UserCreateStatus.Created)
+            {
+                return Redirect(SiteUrls.Instance().SystemMessage(TempData, new SystemMessageViewModel
+                {
+                    Title = "创建网站账号失败",
+                    Body = "创建网站账号失败，请联系管理员",
+                    StatusMessageType = StatusMessageType.Hint
+                }));
+            }
+
+            //创建用户资料
+            UserProfileService userProfileService = new UserProfileService();
+            UserProfile userProfile = UserProfile.New();
+            userProfile.UserId = user.UserId;
+            userProfile.Gender = thirdUser.Gender;
+            userProfileService.Create(userProfile);
+
+            //让用户登录
+            authenticationService.SignIn(user, false);
+
+            //绑定帐号
+            if (!string.IsNullOrEmpty(thirdUser.AccountTypeKey))
+            {
+                AccountBinding account = new AccountBinding();
+                account.AccountTypeKey = thirdUser.AccountTypeKey;
+                account.Identification = thirdUser.Identification;
+                account.UserId = user.UserId;
+                account.AccessToken = thirdUser.AccessToken;
+                int expires_in = TempData.Get<int>("expires_in", 0);
+                if (expires_in > 0)
+                    account.ExpiredDate = DateTime.UtcNow.AddSeconds(expires_in);
+                new AccountBindingService().CreateAccountBinding(account);
+            }
+
+            if (Request.Cookies != null)
+            {
+                if (Request.Cookies.Get("returnUrl") != null && !string.IsNullOrEmpty(Request.Cookies.Get("returnUrl").Value))
+                {
+                    string returnUrl = Request.Cookies.Get("returnUrl").Value;
+                    Response.Cookies["returnUrl"].Expires = DateTime.Now;
+                    return Redirect(Tunynet.Utilities.WebUtility.UrlDecode(returnUrl));
+                }
+
+            }
+
+
+            //根据站点配置判断应该跳转到什么页面
+            if (userSettings.MyHomePageAsSiteEntry)
+                return Redirect(SiteUrls.Instance().MyHome(user.UserId));
+            return Redirect(SiteUrls.Instance().SiteHome());
         }
 
         #endregion

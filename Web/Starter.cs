@@ -290,6 +290,7 @@ namespace Spacebuilder.Environments
             GlobalFilters.Filters.Add(new TrackOnlineUserAttribute());
             GlobalFilters.Filters.Add(new HttpCompressAttribute());
             GlobalFilters.Filters.Add(new PauseSiteCheckAttribute());
+            GlobalFilters.Filters.Add(new ModeStateErrorAttribute());
 
             //注册Combres文件的路由
             RouteTable.Routes.AddCombresRoute("Combres Route");

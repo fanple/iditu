@@ -1,8 +1,12 @@
-﻿//------------------------------------------------------------------------------
-// <copyright company="Tunynet">
-//     Copyright (c) Tunynet Inc.  All rights reserved.
-// </copyright> 
-//------------------------------------------------------------------------------
+﻿//<TunynetCopyright>
+//--------------------------------------------------------------
+//<version>V0.5</verion>
+//<createdate>2012-08-15</createdate>
+//<author>libsh</author>
+//<email>libsh@tunynet.com</email>
+//<log date="2012-08-15" version="0.5">新建</log>
+//--------------------------------------------------------------
+//</TunynetCopyright>
 
 using System.Collections.Generic;
 using Tunynet.Common.Repositories;
@@ -67,6 +71,18 @@ namespace Tunynet.Common
             EventBus<long, SubscribeEventArgs>.Instance().OnAfter(objectId, new SubscribeEventArgs(EventOperationType.Instance().Delete(), tenantTypeId, userId));
 
             return result;
+        }
+
+        /// <summary>
+        /// 清除某个实体的所有订阅
+        /// </summary>
+        /// <param name="objectId">实体ID</param>
+        /// <returns></returns>
+        public bool CleanSubscribesFromObject(long objectId)
+        {
+            //todo:yulf
+
+            return favoriteRepository.CleanSubscribesFromObject(objectId);
         }
 
         /// <summary>

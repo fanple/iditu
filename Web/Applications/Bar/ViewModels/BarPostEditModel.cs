@@ -1,8 +1,12 @@
-﻿//------------------------------------------------------------------------------
-// <copyright company="Tunynet">
-//     Copyright (c) Tunynet Inc.  All rights reserved.
-// </copyright> 
-//------------------------------------------------------------------------------
+﻿//<TunynetCopyright>
+//--------------------------------------------------------------
+//<version>V0.5</verion>
+//<createdate>2012-09-06</createdate>
+//<author>bianchx</author>
+//<email>bianchx@tunynet.com</email>
+//<log date="2012-09-06" version="0.5">创建</log>
+//--------------------------------------------------------------
+//</TunynetCopyright>
 
 using System;
 using System.Collections.Generic;
@@ -59,6 +63,7 @@ namespace Spacebuilder.Bar
         /// <summary>
         /// 帖子的主题内容
         /// </summary>
+        [AllowHtml]
         [DataType(DataType.MultilineText)]
         [Required(ErrorMessage = "请输入内容")]
         public string MultilineBody { get; set; }
@@ -113,7 +118,7 @@ namespace Spacebuilder.Bar
             }
             else
             {
-                this.MultilineBody = HtmlUtility.CleanHtml(this.MultilineBody, TrustedHtmlLevel.Basic);
+                this.MultilineBody = WebUtility.HtmlEncode(this.MultilineBody);
                 this.MultilineBody = new EmotionService().EmoticonTransforms(this.MultilineBody);
                 post.Body = this.MultilineBody;
             }

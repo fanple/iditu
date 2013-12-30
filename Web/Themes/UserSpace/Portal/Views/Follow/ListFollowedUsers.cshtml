@@ -4,8 +4,7 @@
 
     GenderType gender = ViewData.Get<GenderType>("Gender", GenderType.NotSet);
     Follow_SortBy sortBy = ViewData.Get<Follow_SortBy>("sortBy", Follow_SortBy.DateCreated_Desc);
-    Dictionary<long, bool> isCurrentUserFollowDic = ViewData.Get<Dictionary<long, bool>>("isCurrentUserFollowDic", null);
-
+    var currentUser = UserContext.CurrentUser;
 }
 @section ContentHeader{
     <div class="spb-po-user-profile">
@@ -88,7 +87,7 @@
                                     </div>
                                     <div class="tn-list-item-area-main">
                                         <div class="tn-list-item-row tn-helper-clearfix">
-                                            @if (UserContext.CurrentUser == null || UserContext.CurrentUser.UserId != user.UserId)
+                                            @if (currentUser != null && !currentUser.IsFollowed(user.UserId))
                                             {
                                                 <div class="tnc-relationship" id="followedDiv">
                                                     @Html.FollowUser(user.UserId, "加关注", followButtonType: FollowButtonTypes.Link)

@@ -18,7 +18,6 @@ namespace Tunynet.Common.Repositories
     public class TenantTypeRepository : Repository<TenantType>, ITenantTypeRepository
     {
 
-        public ICacheService cacheService = DIContainer.Resolve<ICacheService>();
 
         /// <summary>
         /// 依据服务或应用获取租户类型

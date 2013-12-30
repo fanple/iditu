@@ -332,7 +332,7 @@ namespace Spacebuilder.Group.Controllers
                     groupService.SendInvitations(group, currentUser, remark, couldBeInvetedUserIds);
                     if (count < ids.Count())
                     {
-                        message = new StatusMessageData(StatusMessageType.Hint, "共有" + count + "个好友邀请成功，" + unInviteFriendNames.Substring(0, unInviteFriendNames.Count() - 1) + "不能被邀请！");
+                        message = new StatusMessageData(StatusMessageType.Hint, "共有" + count + "个好友邀请成功，" + unInviteFriendNames.Substring(0, unInviteFriendNames.Count() - 1) + "因隐私限制原因，不能被邀请！");
                     }
                     else
                     {
@@ -435,20 +435,7 @@ namespace Spacebuilder.Group.Controllers
                 return new EmptyResult();
             PagingDataSet<GroupMember> groupMembers = groupService.GetGroupMembers(groupId, false, SortBy_GroupMember.DateCreated_Desc);
             IEnumerable<GroupMember> members = groupMembers.Take(topNumber);
-            //设置当前登录用户对当前页用户的关注情况
-            Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
-            foreach (var member in members)
-            {
-                if (followService.IsFollowed(currentUser.UserId, member.UserId))
-                {
-                    isCurrentUserFollowDic[member.UserId] = true;
-                }
-                else
-                {
-                    isCurrentUserFollowDic[member.UserId] = false;
-                }
-            }
-            ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
+
             return View(members);
         }
 

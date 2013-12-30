@@ -18,8 +18,6 @@ namespace Spacebuilder.Common
     /// </summary>
     public class LinkRepository : Repository<LinkEntity>, ILinkRepository
     {
-        ICacheService cacheService = DIContainer.Resolve<ICacheService>();
-
         /// <summary>
         /// 获取Owner友情链接
         /// </summary>

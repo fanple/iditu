@@ -29,6 +29,7 @@ namespace Spacebuilder.Common
         {
             EventBus<IUser, ChangePointsEventArgs>.Instance().After += new CommonEventHandler<IUser, ChangePointsEventArgs>(ChangePointsEventModule_After);
             EventBus<User, CreateUserEventArgs>.Instance().After += new CommonEventHandler<User, CreateUserEventArgs>(RegisterEventModule_After);
+            EventBus<User, CreateUserEventArgs>.Instance().After += new CommonEventHandler<User, CreateUserEventArgs>(NoEmailNotice);
         }
 
         /// <summary>
@@ -41,6 +42,26 @@ namespace Spacebuilder.Common
             PointService pointService = new PointService();
             string description = string.Format(ResourceAccessor.GetString("PointRecord_Pattern_Register"), sender.UserName);
             pointService.GenerateByRole(sender.UserId, PointItemKeys.Instance().Register(), description, true);
+        }
+
+        /// <summary>
+        /// 邮件缺失提醒
+        /// </summary>
+        /// <param name="sender">用户对象</param>
+        /// <param name="eventArgs">参数</param>
+        void NoEmailNotice(User sender, CreateUserEventArgs eventArgs)
+        {
+            if (string.IsNullOrEmpty(sender.AccountEmail))
+            {
+                NoticeService noticeService = new NoticeService();
+                Notice notice = Notice.New();
+                notice.TemplateName = "NoEmailNotice";
+                notice.TypeId = NoticeTypeIds.Instance().Hint();
+                notice.LeadingActorUrl = SiteUrls.Instance().EditUserProfile(sender.UserName);
+                notice.UserId = sender.UserId;
+                notice.Status = NoticeStatus.Unhandled;
+                noticeService.Create(notice);
+            }
         }
 
         /// <summary>

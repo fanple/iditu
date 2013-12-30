@@ -19,8 +19,6 @@ namespace Spacebuilder.Common
     /// </summary>
     public class WorkExperienceRepository : Repository<WorkExperience>, IWorkExperienceRepository
     {
-        ICacheService cacheService = DIContainer.Resolve<ICacheService>();
-
         /// <summary>
         /// 获取所有用户工作信息
         /// </summary>

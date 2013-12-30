@@ -26,7 +26,7 @@
         </div>
         <div class="tn-list-item-area-main">
             <div class="tn-list-item-row tn-helper-clearfix">
-                @if ((currentUser != null && currentUser.UserId != user.UserId))
+                                    @if (currentUser != null && !currentUser.IsFollowed(user.UserId))
                 {
                     <div class="tnc-relationship" id="followedDiv">
                         @Html.FollowUser(user.UserId, "加关注", followButtonType: FollowButtonTypes.Link)

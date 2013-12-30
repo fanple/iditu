@@ -18,8 +18,6 @@ namespace Spacebuilder.Common
     /// </summary>
     public class EducationExperienceRepository : Repository<EducationExperience>, IEducationExperienceRepository
     {
-        ICacheService cacheService = DIContainer.Resolve<ICacheService>();
-
         /// <summary>
         /// 获取所有教育信息
         /// </summary>

@@ -1,7 +1,7 @@
 ﻿@model  PagingDataSet<User>
 @{
     UserSearcher userSearcher = (UserSearcher)Spacebuilder.Search.SearcherFactory.GetSearcher(UserSearcher.CODE);
-    Dictionary<long, bool> isCurrentUserFollowDic = ViewData.Get<Dictionary<long, bool>>("isCurrentUserFollowDic", null);
+    var currentUser = UserContext.CurrentUser;
     string keyword = Request.QueryString.GetString("keyword", string.Empty);
 }
 @if (Model.TotalRecords > 0)
@@ -12,8 +12,7 @@
         <div class="tn-option">
             <a href="@userSearcher.PageSearchActionUrl(keyword)">更多</a>
         </div>
-        <h4>
-            用户</h4>
+        <h4>用户</h4>
     </div>
     <div class="tnc-search-person">
         <ul class="tn-list">
@@ -42,10 +41,10 @@
                     <div class="tn-list-item-area-left">
                         @Html.ShowUserAvatar(user, AvatarSizeType.Small, true, HyperLinkTarget._blank)
                     </div>
-                    @if (isCurrentUserFollowDic != null && (UserContext.CurrentUser == null || (UserContext.CurrentUser != null && UserContext.CurrentUser.UserId != user.UserId)))
+                    @if (currentUser != null && !currentUser.IsFollowed(user.UserId))
                     {
                         <div class="tn-list-item-area-right">
-                            @Html.FollowUser(user.UserId,"加关注")
+                            @Html.FollowUser(user.UserId, "加关注")
                         </div>
                     }
                     <div class="tn-list-item-area-main">

@@ -90,9 +90,9 @@ namespace Spacebuilder.Common
         {
             ISiteSettingsManager siteSettingsManager = DIContainer.Resolve<ISiteSettingsManager>();
             SiteSettings siteSettings = siteSettingsManager.Get();
-
-            string key = EncryptionUtility.MD5(siteSettings.MainSiteRootUrl + "A4ba4oqS").ToLower();
-            string creatLink = string.Format("http://wss.cnzz.com/user/companion/spacebuilder.php?domain={0}&key={1}", siteSettings.MainSiteRootUrl, key);
+            string siteurl=siteSettings.MainSiteRootUrl.Replace(@"http://","").TrimEnd('/');
+            string key = EncryptionUtility.MD5(siteurl + "A4ba4oqS").ToLower();
+            string creatLink = string.Format("http://wss.cnzz.com/user/companion/spacebuilder.php?domain={0}&key={1}", siteurl, key);
             string webMatter = HttpCollects.GetHTMLContent(creatLink, Encoding.GetEncoding("gb2312"), null);
 
             string errorMessage = null;

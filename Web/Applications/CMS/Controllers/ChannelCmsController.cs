@@ -499,8 +499,7 @@ namespace Spacebuilder.CMS.Controllers
         /// </summary>
         public ActionResult TagDetail(string tagName, int pageSize = 15, int pageIndex = 1)
         {
-            tagName = WebUtility.UrlDecode(tagName);
-
+            //tagName = WebUtility.UrlDecode(tagName);
             var tag = tagService.Get(tagName);
 
             if (tag == null)

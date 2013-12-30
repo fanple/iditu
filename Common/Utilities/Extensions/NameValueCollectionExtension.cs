@@ -11,7 +11,8 @@ using System.Text;
 using System.Collections.Specialized;
 using System.Collections;
 using System.ComponentModel;
-
+using System.Web;
+using System.Web.Helpers;
 namespace Spacebuilder.Common
 {
     /// <summary>
@@ -52,7 +53,7 @@ namespace Spacebuilder.Common
                 {
                     if (string.IsNullOrEmpty(collection[key].ToString()))
                         return defaultValue;
-                    return (T)TypeDescriptor.GetConverter(Nullable.GetUnderlyingType(tType)).ConvertFrom(collection[key]);                    
+                    return (T)TypeDescriptor.GetConverter(Nullable.GetUnderlyingType(tType)).ConvertFrom(collection[key]);
                 }
                 else if (tType.IsEnum)
                 {
@@ -74,7 +75,7 @@ namespace Spacebuilder.Common
             else
                 return returnValue;
         }
-         /// <summary>
+        /// <summary>
         /// 获取请求中的集合数据
         /// </summary>
         /// <typeparam name="T">必须是基本类型</typeparam>
@@ -128,8 +129,19 @@ namespace Spacebuilder.Common
         public static string GetString(this NameValueCollection collection, string key, string defaultValue)
         {
             string returnValue = defaultValue;
-            if (collection[key] != null)
-                returnValue = collection[key];
+
+            try
+            {
+                if (collection[key] != null)
+                    returnValue = collection[key];
+            }
+            catch
+            {
+                var queryString = HttpContext.Current.Request.Unvalidated().QueryString;
+                if (queryString[key] != null)
+                    returnValue = Tunynet.Utilities.HtmlUtility.StripHtml(queryString[key], true, false);
+            }
+
 
             return returnValue;
         }

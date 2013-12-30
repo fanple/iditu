@@ -11,7 +11,8 @@
 @if (Model != null && Model.Count() > 0)
 {
     <div class="tn-text-heading tn-border-bottom tn-border-gray">
-        <strong>图片列表</strong></div>
+        <strong>图片列表</strong>
+    </div>
     <div class="tnc-photo-gallery">
         <ul class="tn-photo-list tn-helper-clearfix">
             @foreach (var image in Model)
@@ -53,7 +54,7 @@
             var biggerSize = $(this).data("biggersize");
             var width = $(this).data("width");
             var $tinyMCE = $('#' + tinyMCE.activeEditor.id);
-            $tinyMCE.insertContentToEditor('<a href="' + biggerSize + '" rel="fancybox"><img alt="' + titleImage + '" width="' + width + '" src="' + biggerSize + '" /></a><br/>');
+            $tinyMCE.insertContentToEditor('<p><a href="' + biggerSize + '" rel="fancybox"><img alt="' + titleImage + '" width="' + width + '" src="' + biggerSize + '" /></a></p>');
         });
 
         $("li[id^='imageId_']", $("ul.tn-photo-list")).hover(function () {

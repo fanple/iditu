@@ -3,6 +3,7 @@
     
     SpaceHomeMoreType type = ViewData.Get<SpaceHomeMoreType>("type", SpaceHomeMoreType.TogetherFollowedUsers);
     int pageIndex = Request.QueryString.Get<int>("pageIndex", 1);
+    bool isShowMore = ViewData.Get<bool>("isShowMore", false);
 }
 @if (Model != null && Model.Count() > 0)
 {
@@ -58,13 +59,12 @@
         }
     </ul>
 }
- <div class="tn-load-more tn-bg-gray tn-border-gray" plugin="GetMore">
-        <a href="@Html.Raw(SiteUrls.Instance()._SpaceHomeMore(Url.SpaceKey(), (int)type, pageIndex + 1))" class="tn-action tn-action-text-icon-right">@Html.Icon(IconTypes.SmallCollapseOpen)<span class="tn-action-text">更多信息</span> </a>
-    </div>
-@*
-else
-{ 
-    <div class="tn-no-data">
-        暂无数据
-    </div>
-}*@
+@if (isShowMore)
+{
+<div class="tn-load-more tn-bg-gray tn-border-gray" plugin="GetMore">
+    <a href="@Html.Raw(SiteUrls.Instance()._SpaceHomeMore(Url.SpaceKey(), (int)type, pageIndex + 1))" class="tn-action tn-action-text-icon-right">
+        @Html.Icon(IconTypes.SmallCollapseOpen)
+        <span class="tn-action-text">更多信息</span>
+    </a>
+</div>
+}

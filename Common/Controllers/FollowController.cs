@@ -1022,19 +1022,8 @@ namespace Spacebuilder.Common
                 ViewData["Gender"] = userProfile.Gender;
             }
 
-            Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
 
             PagingDataSet<long> userFollowedUserIds = followService.GetFollowedUserIds(userId, null, (Follow_SortBy)sortBy, pageIndex);
-
-            //已修改
-            foreach (var id in userFollowedUserIds)
-            {
-                if (currentUser != null)
-                {
-                    isCurrentUserFollowDic[id] = followService.IsFollowed(currentUser.UserId, id);
-                }
-            }
-            ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
 
             IEnumerable<User> users = userService.GetFullUsers(userFollowedUserIds.ToList());
 
@@ -1366,6 +1355,13 @@ namespace Spacebuilder.Common
             IEnumerable<User> users = new List<User>();
             if (ids != null)
                 users = userService.GetFullUsers(ids);
+
+            //是否显示更多
+            bool isShowMore = false;
+            if (users != null && users.Count() >= pageSize)
+                isShowMore = true;
+            ViewData["isShowMore"] = isShowMore;
+
             return View(users);
         }
 
@@ -1486,29 +1482,7 @@ namespace Spacebuilder.Common
 
             IUser currentUser = UserContext.CurrentUser;
             IEnumerable<long> followedUserIds = followService.GetTopFollowedUserIds(user.UserId, 3, sortBy: Follow_SortBy.DateCreated_Desc);
-            List<User> followedUsers = new List<User>();
-
-            Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
-            foreach (long userId in followedUserIds)
-            {
-                IUser tempUser = userService.GetUser(userId);
-                if (tempUser == null)
-                    continue;
-
-                if (followService.IsFollowed(currentUser == null ? 0 : currentUser.UserId, tempUser.UserId))
-                {
-                    isCurrentUserFollowDic[tempUser.UserId] = true;
-                }
-                else
-                {
-                    isCurrentUserFollowDic[tempUser.UserId] = false;
-                }
-            }
-
-            ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
-            ViewData["FollowUsers"] = followedUsers;
             ViewData["ActivityUserId"] = activity.UserId;
-
             return View(activity);
         }
 

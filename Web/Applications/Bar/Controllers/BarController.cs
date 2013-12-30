@@ -1,10 +1,4 @@
-﻿//------------------------------------------------------------------------------
-// <copyright company="Tunynet">
-//     Copyright (c) Tunynet Inc.  All rights reserved.
-// </copyright> 
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -96,7 +90,7 @@ namespace Spacebuilder.Bar.Controllers
         /// </summary>
         /// <returns></returns>
         [DonutOutputCache(CacheProfile = "Frequently")]
-        public ActionResult _RecommendSections(int topNumber = 10, string recommendTypeId = null, DisplayTemplate_RecommendSections displayTemplate = DisplayTemplate_RecommendSections.Summary)
+        public ActionResult _RecommendSections(int topNumber = 10, string recommendTypeId = null, DisplayTemplate_RecommendSections displayTemplate = DisplayTemplate_RecommendSections.Summary,bool isLogin=false)
         {
             //todo:libsh,by zhengw:等待宝声完成推荐功能
             IEnumerable<RecommendItem> recommendSections = recommendService.GetTops(topNumber, recommendTypeId);

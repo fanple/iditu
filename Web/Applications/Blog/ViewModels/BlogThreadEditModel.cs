@@ -182,14 +182,16 @@ namespace Spacebuilder.Blog
             if (string.IsNullOrEmpty(blogThread.Keywords))
             {
                 string[] keywords = ClauseScrubber.TitleToKeywords(this.Subject);
-                blogThread.Keywords = string.Join(" ", keywords);
+                if (keywords.Length > 0)
+                    blogThread.Keywords = string.Join(" ", keywords);
+                else
+                    blogThread.Keywords = string.Empty;
             }
             blogThread.Summary = this.Summary;
             if (string.IsNullOrEmpty(this.Summary))
             {
-                blogThread.Summary = HtmlUtility.TrimHtml(this.Body, TextLengthSettings.TEXT_DESCRIPTION_MAXLENGTH);
+                blogThread.Summary = HtmlUtility.TrimHtml(this.Body, 100);
             }
-
             blogThread.FeaturedImageAttachmentId = this.FeaturedImageAttachmentId;
             if (blogThread.FeaturedImageAttachmentId > 0)
             {

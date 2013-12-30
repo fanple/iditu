@@ -91,7 +91,7 @@
         $.ajax({
                 type: "Post",
                 url: "@Html.Raw(SiteUrls.Instance().SetGroupForFollowedUser(Url.SpaceKey(), true))",
-                data:{ userGroupId: categoryId, followedUserId:followUserId,followId:@followId},
+            data:{ userGroupId: categoryId, followedUserId:followUserId,followId:@followId,currentGroupId:groupId},
                 success: function (data) {
                 if(groupId==0)
                     {
@@ -110,7 +110,7 @@
             $.ajax({
                 type: "Post",
                 url: "@Html.Raw(SiteUrls.Instance().SetGroupForFollowedUser(Url.SpaceKey(), false))",
-                data:{ userGroupId: categoryId, followedUserId:followUserId,followId:@followId},
+                data:{ userGroupId: categoryId, followedUserId:followUserId,followId:@followId,currentGroupId:groupId},
                 success: function (data) {
                  if(groupId==currentGroupId)
                     {

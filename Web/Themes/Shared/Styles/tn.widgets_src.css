@@ -592,6 +592,7 @@ a.tn-action .tn-icon { cursor: pointer; }
 .tn-photo-item { float: left; width: 110px; padding: 0 0 15px 15px; }
 .tn-photo-item .tn-photo-wrap { height: 100px; margin-bottom: 5px; padding: 4px 3px 4px 4px; }
 .tn-photo-item .tn-photo-wrap a { display: block; height: 100px; text-align: center; vertical-align: middle; }
+.tn-photo-item .tn-photo-wrap a:hover { text-decoration: none; }
 .tn-photo-item .tn-photo-wrap img { vertical-align: middle; }
 .tn-photo-item .tn-photo-wrap span { width: 1px; height: 100%; vertical-align: middle; visibility: hidden; display: inline-block; }
 .tn-photo-item p { text-align: center; height: 1.5em; line-height: 1.5em; word-wrap: break-word; overflow: hidden; }

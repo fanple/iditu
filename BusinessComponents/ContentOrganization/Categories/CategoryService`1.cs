@@ -377,10 +377,19 @@ namespace Tunynet.Common
             if (categoryIds == null || itemId < 1)
                 throw new ExceptionFacade("输入参数不合理！");
 
-            EventBus<long, CategoryEventArgs>.Instance().OnBatchBefore(categoryIds, new CategoryEventArgs(EventOperationType.Instance().Create(), "100201", itemId));
+            //yulf todo 获取租户类型 by categoryId 第一个
+            string tenantTypeId = "100201";
+            if (categoryIds.Count() > 0)
+            {
+                long categoryId = categoryIds.First();
+                Category category = Get(categoryId);
+                tenantTypeId = category.TenantTypeId;
+            }
+
+            EventBus<long, CategoryEventArgs>.Instance().OnBatchBefore(categoryIds, new CategoryEventArgs(EventOperationType.Instance().Create(), tenantTypeId, itemId));
             //数据库插入操作
             itemInCategoryRepository.AddCategoriesToItem(categoryIds, itemId);
-            EventBus<long, CategoryEventArgs>.Instance().OnBatchAfter(categoryIds, new CategoryEventArgs(EventOperationType.Instance().Create(), "100201", itemId));
+            EventBus<long, CategoryEventArgs>.Instance().OnBatchAfter(categoryIds, new CategoryEventArgs(EventOperationType.Instance().Create(), tenantTypeId, itemId));
 
             //处理涉及分类的ItemCount计数
             if (categoryIds.Count<long>() > 0)

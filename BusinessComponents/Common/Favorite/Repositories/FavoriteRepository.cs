@@ -105,6 +105,22 @@ namespace Tunynet.Common.Repositories
         }
 
         /// <summary>
+        /// 清除某个实体的所有订阅
+        /// </summary>
+        /// <param name="objectId">实体ID</param>
+        /// <returns></returns>
+        public bool CleanSubscribesFromObject(long objectId)
+        {
+            Sql sql = Sql.Builder;
+            sql.Append("delete from tn_Favorites where ObjectId = @0",objectId);
+            int affectCount = CreateDAO().Execute(sql);
+            if (affectCount > 0)
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
         /// 判断是否收藏
         /// </summary>
         /// <param name="objectId">被收藏对象Id</param>

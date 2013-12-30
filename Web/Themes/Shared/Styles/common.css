@@ -746,10 +746,12 @@ Offical Style for Spacebuilder
 .tnc-dynamic .tnc-dynamic-quote{ margin-top:5px;}
 .tnc-dynamic .tnc-quote-name a{ font-weight:bold;}
 .tnc-dynamic .tnc-dynamic-mayknow{ margin-top:10px; overflow:hidden;}
-.tnc-dynamic .tnc-mayknow-single{ float:left; overflow:hidden; margin-right:20px;}
+.tnc-dynamic .tnc-mayknow-single { float: left; overflow: hidden; width: 79px; padding: 0 5px; }
+.tnc-dynamic .tnc-mayknow-single .tn-avatar { margin: 1px auto 3px; }
+.tnc-dynamic .tnc-mayknow-main .tnc-mayknow-tit { display: block; line-height: 20px; text-align: center; height: 20px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.tnc-dynamic .tnc-mayknow-main p.tnc-mayknow-tit { display: none; }
+.tnc-dynamic .tnc-mayknow-main .tn-explain-icon { display: none; } 
 .tnc-dynamic .tnc-mayknow-img{ margin:3px 10px 0 0;}
-.tnc-dynamic .tnc-mayknow-main{overflow:hidden; float:left;}
-.tnc-dynamic .tnc-mayknow-tit{ line-height:18px;}
 .tnc-dynamic .tnc-mayknow-main .tn-text-note{border-radius: 3px 3px 3px 3px;float:left;line-height: 16px;padding: 1px 2px; margin-top:5px;}
 .tnc-dynamic .tnc-mayknow-main .tn-icon{ float:left;}
 .tnc-dynamic .tnc-mayknow-time{ margin-top:10px; clear:both;}

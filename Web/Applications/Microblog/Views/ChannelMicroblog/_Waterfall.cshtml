@@ -1,6 +1,6 @@
 ﻿@model  IEnumerable<MicroblogEntity>
 @{
-    Dictionary<long, bool> isCurrentUserFollowDic = ViewData.Get<Dictionary<long, bool>>("isCurrentUserFollowDic", null);
+    var currentUser = UserContext.CurrentUser;
     int imgW = 0;
 }
 @if (Model.Count() > 0)
@@ -11,9 +11,7 @@
         {
             continue;
         }
-        
 
-        
     <div id="@microBlog.MicroblogId" class="water-fall-box tn-waterfall-list">
         <div class="tn-inner tn-widget-content tn-border-gray tn-corner-all">
             @if (!string.IsNullOrEmpty(microBlog.ImageUrl))
@@ -45,14 +43,12 @@
                     </div>
                 </div>
                 <div class="tn-fall-trans tn-helper-clearfix tn-border-gray tn-border-dotted tn-border-top">
-                    @if (isCurrentUserFollowDic != null && (UserContext.CurrentUser == null || (UserContext.CurrentUser != null && UserContext.CurrentUser.UserId != microBlog.UserId)))
+                    @if (currentUser != null && !currentUser.IsFollowed(microBlog.UserId))
                     {
                         @Html.FollowUser(microBlog.UserId, "加关注") 
                     }
-                    <a href="@SiteUrls.Instance()._ForwardMicroblog(microBlog.User.UserName, microBlog.MicroblogId)" plugin="dialog">
-                        转发(@microBlog.ForwardedCount)</a><span class="tn-spacer tn-text-note">|</span>
-                    <a href="@SiteUrls.Instance().ShowMicroblog(microBlog.User.UserName, microBlog.MicroblogId)" name="ShowMicroblog">
-                        详情</a>
+                    <a href="@SiteUrls.Instance()._ForwardMicroblog(microBlog.User.UserName, microBlog.MicroblogId)" plugin="dialog">转发(@microBlog.ForwardedCount)</a><span class="tn-spacer tn-text-note">|</span>
+                    <a href="@SiteUrls.Instance().ShowMicroblog(microBlog.User.UserName, microBlog.MicroblogId)" name="ShowMicroblog">详情</a>
                 </div>
             </div>
         </div>

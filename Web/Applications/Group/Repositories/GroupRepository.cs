@@ -25,7 +25,6 @@ namespace Spacebuilder.Group
     /// </summary>
     public class GroupRepository : Repository<GroupEntity>, IGroupRepository
     {
-        ICacheService cacheService = DIContainer.Resolve<ICacheService>();
 
         public GroupRepository() { }
 

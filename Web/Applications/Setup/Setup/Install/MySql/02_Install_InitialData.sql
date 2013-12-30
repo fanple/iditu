@@ -245,7 +245,7 @@ INSERT `tn_InitialNavigations` (`NavigationId`, `ParentNavigationId`, `Depth`, `
  (20000075, 20000031, 2, 'ControlPanel', 0, 1, '客服消息', '', '', 'ControlPanel_Operation_ManageCustomMessage', NULL, NULL, NULL, '_self', 20000075, 0, 1, 1),
  (20000076, 20000031, 2, 'ControlPanel', 0, 1, '群发消息', '', '', 'ControlPanel_Operation_MassMessages', NULL, NULL, NULL, '_self', 20000076, 0, 1, 1),
  (20000077, 20000031, 2, 'ControlPanel', 0, 1, '站点统计', '', '', 'ControlPanel_Operation_Statistics', NULL, NULL, NULL, '_blank', 20000077, 0, 1, 1),
- (20000042, 0, 0, 'ControlPanel', 0, 1, '工具', ' ', ' ', 'ControlPanel_Tool_Home', NULL, NULL, NULL, '_self', 20000042, 0, 1, 1),
+ (20000042, 0, 0, 'ControlPanel', 0, 1, '工具', ' ', ' ', 'ControlPanel_Tool_ManageIndex', NULL, NULL, NULL, '_self', 20000042, 0, 1, 1),
  (20000043, 20000042, 1, 'ControlPanel', 0, 1, '工具', ' ', ' ', '', NULL, NULL, NULL, '_self', 20000043, 0, 1, 1),
  (20000044, 20000043, 2, 'ControlPanel', 0, 1, '重建索引', ' ', ' ', 'ControlPanel_Tool_ManageIndex', NULL, NULL, NULL, '_self', 20000044, 0, 1, 1),
  (20000045, 20000043, 2, 'ControlPanel', 0, 1, '清除缓存', '', '', 'ControlPanel_Tool_ResetCache', NULL, NULL, NULL, '_self', 20000045, 0, 1, 1),
@@ -282,6 +282,7 @@ INSERT `tn_AuditItems` (`ItemKey`, `ApplicationId`, `ItemName`, `DisplayOrder`, 
 -- 账户类型
 INSERT `tn_AccountTypes` (`AccountTypeKey`, `ThirdAccountGetterClassType`, `AppKey`, `AppSecret`, `IsSync`, `IsShareMicroBlog`, `IsFollowMicroBlog`, `OfficialMicroBlogAccount`, `IsEnabled`) VALUES ('Renren', 'Spacebuilder.Common.RenrenAccountGetter,Spacebuilder.Common', '', '', 0, 0, 0, '', 0);
 INSERT `tn_AccountTypes` (`AccountTypeKey`, `ThirdAccountGetterClassType`, `AppKey`, `AppSecret`, `IsSync`, `IsShareMicroBlog`, `IsFollowMicroBlog`, `OfficialMicroBlogAccount`, `IsEnabled`) VALUES ('SinaWeibo', 'Spacebuilder.Common.SinaWeiboAccountGetter,Spacebuilder.Common', '', '', 0, 0, 0, '', 0);
+INSERT `tn_AccountTypes` (`AccountTypeKey`, `ThirdAccountGetterClassType`, `AppKey`, `AppSecret`, `IsSync`, `IsShareMicroBlog`, `IsFollowMicroBlog`, `OfficialMicroBlogAccount`, `IsEnabled`) VALUES ('QQ', 'Spacebuilder.Common.QQAccountGetter,Spacebuilder.Common', '', '', 0, 0, 0, '', 0);
 
 -- 标签
 INSERT `tn_TagsInOwners` (`Id`, `TenantTypeId`, `TagName`, `OwnerId`, `ItemCount`) VALUES (1, '000011', 'Spacebuilder', 0, 0);

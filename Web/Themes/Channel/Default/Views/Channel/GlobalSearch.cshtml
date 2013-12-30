@@ -4,7 +4,7 @@
     string searcherCode = Spacebuilder.Search.SearcherFactory.GlobalSearchCode;
     ViewData["searcherCode"] = searcherCode;
 
-    string keyword = Request.QueryString.GetString("keyword", string.Empty);
+    string keyword = Request.Unvalidated().QueryString.GetString("keyword", string.Empty);
 }
 @section SearchForm{
     @using (Html.BeginForm("GlobalSearch", "Channel", FormMethod.Get, new { id = "searchForm" }))
@@ -19,42 +19,44 @@
 
 <div class="tn-box tn-widget tn-widget-content tn-corner-all tnc-search-results">
     <div class="tn-box-content tn-widget-content tn-corner-all">
-    <div class="tnc-global-search">
-        <div class="tn-list-header tn-bg-gray tn-border-gray tn-border-bottom">
-            <div class="tn-list-header-row tn-helper-clearfix tn-bg-gray">
-                <span class="tn-count">共有 <strong id="globalTotalRecords">0</strong>个搜索结果（用时 <span
-                    id="globalQueryDuration">0</span> 秒）</span>
+        <div class="tnc-global-search">
+            <div class="tn-list-header tn-bg-gray tn-border-gray tn-border-bottom">
+                <div class="tn-list-header-row tn-helper-clearfix tn-bg-gray">
+                    <span class="tn-count">共有 <strong id="globalTotalRecords">0</strong>个搜索结果（用时 <span
+                        id="globalQueryDuration">0</span> 秒）</span>
+                </div>
             </div>
-        </div>
-        @for (int i = 0; i < Model.Count(); i++)
-        {
-            var searcher = Model.ElementAt(i);
-            <div class="search-view" data-url='@searcher.GlobalSearchActionUrl(Tunynet.Utilities.WebUtility.UrlEncode(keyword))&&topNumber=7'>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var searcher = Model.ElementAt(i);
+                <div class="search-view" data-url='@searcher.GlobalSearchActionUrl(Tunynet.Utilities.WebUtility.UrlEncode(keyword))&&topNumber=7'>
+                </div>
+            }
+            @if (string.IsNullOrEmpty(keyword))
+            {
+                <div class="tn-cue-tips tn-corner-all tn-message-box tn-border-gray tn-bg-gray">
+                    <a class="tn-icon tn-smallicon-cross tn-helper-right" href="#"></a><span class="tn-helper-left">
+                        <span class="tn-icon tn-icon-exclamation"></span></span>
+                    <div class="tn-helper-flowfix">
+                        <strong>提示：</strong>请输入搜索条件
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="tn-loading" id="loading"></div>
+            }
+            <div class="tnc-search-noresults" style="display: none">
+                <p class="tn-title">
+                    很抱歉，没有找到符合您搜索条件的结果！
+                </p>
+                <dl class="tn-support">
+                    <dt><strong>建议：</strong></dt>
+                    <dd>请确保搜索文字拼写正确</dd>
+                    <dd>请尝试使用其他关键词或使用近义词</dd>
+                    <dd>请尝试使用含义更为宽泛的关键词</dd>
+                </dl>
             </div>
-        }
-        @if(string.IsNullOrEmpty(keyword)){
-        <div class="tn-cue-tips tn-corner-all tn-message-box tn-border-gray tn-bg-gray">
-            <a class="tn-icon tn-smallicon-cross tn-helper-right" href="#"></a><span class="tn-helper-left">
-                <span class="tn-icon tn-icon-exclamation"></span></span>
-            <div class="tn-helper-flowfix">
-                <strong>提示：</strong>请输入搜索条件</div>
-        </div>
-        }else{
-            <div class="tn-loading" id="loading"></div>
-        }
-        <div class="tnc-search-noresults" style="display:none">
-            <p class="tn-title">
-                很抱歉，没有找到符合您搜索条件的结果！</p>
-            <dl class="tn-support">
-                <dt><strong>建议：</strong></dt>
-                <dd>
-                    请确保搜索文字拼写正确</dd>
-                <dd>
-                    请尝试使用其他关键词或使用近义词</dd>
-                <dd>
-                    请尝试使用含义更为宽泛的关键词</dd>
-            </dl>
-        </div>
         </div>
     </div>
 </div>
@@ -77,7 +79,7 @@
                     $(this).load($(this).data("url"));
                 })
 
-                
+
                 //if (a == 0) {
                 //    $("#loading").hide();
                 //    $(".tnc-search-noresults").show();
@@ -177,7 +179,7 @@
                     e.preventDefault();
                     self.searchForm.submit();
                 });
-            }            
+            }
         }
 
         GlobalSearcher = new GlobalSearcher();
@@ -185,13 +187,13 @@
     $(document).ready(function () {
 
         b();
-        
+
     });
     function b() {
         setTimeout(function () {
             var a = parseInt($("#globalTotalRecords").text());
-            var key = $("#keyword",$('#searchForm')).val();
-            if (a == 0 && key.length>0) {
+            var key = $("#keyword", $('#searchForm')).val();
+            if (a == 0 && key.length > 0) {
                 $("#loading").hide();
                 $(".tnc-search-noresults").show();
             }

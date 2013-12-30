@@ -20,8 +20,6 @@ namespace Spacebuilder.Common
     /// </summary>
     public class IdentificationRepository : Repository<Identification>, IIdentificationRepository
     {
-        ICacheService cacheService = DIContainer.Resolve<ICacheService>();
-
         /// <summary>
         /// 获取身份认证的分页集合
         /// </summary>

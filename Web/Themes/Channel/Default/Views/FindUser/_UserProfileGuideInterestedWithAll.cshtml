@@ -1,6 +1,5 @@
 ﻿@model  IEnumerable<User>
 @{    
-    Dictionary<long, bool> isCurrentUserFollowDic = ViewData.Get<Dictionary<long, bool>>("isCurrentUserFollowDic", null);
     Dictionary<long, string> interestedDic = ViewData["interestedDic"] as Dictionary<long, string>;
 }
 @foreach (var user in Model)

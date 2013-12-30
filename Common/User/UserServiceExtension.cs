@@ -119,6 +119,11 @@ namespace Spacebuilder.Common
 
             //删除文件系统的头像使用以下代码
             storeProvider.DeleteFolder(GetAvatarRelativePath(userId));
+
+            IUserRepository userRepository = userService.GetUserRepository();
+            var user = userRepository.Get(userId);
+            user.Avatar = "avatar_default";
+            userRepository.UpdateAvatar(user, user.Avatar);
         }
 
         /// <summary>

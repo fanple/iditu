@@ -6,6 +6,7 @@ Offical Style for Spacebuilder
 /* Page Layout
 ----------------------------------*/
 html { overflow-x:hidden;}
+#tn-header .tn-wrapper { width: auto; }
 #tn-content .tn-wrapper { width: 950px; margin: 0 auto; padding-top: 20px; }
 #tn-footer .tn-wrapper { width: 950px; margin: 0 auto; }
 
@@ -19,7 +20,7 @@ html { overflow-x:hidden;}
 .spb-top-menubar li.tn-icon-menu a.tn-icon { float: right; margin-bottom: 0; }
 .spb-top-menubar .spb-current-user { float: right; width: auto; position: relative; }
 .spb-top-menubar .spb-current-user .tn-user-name { line-height: 16px; margin: 0; padding: 4px 0 0; }
-.spb-top-menubar .spb-logo a { width: 170px; height:68px; }
+.spb-top-menubar .spb-logo a { width: 80px; height:68px; }
 .spb-top-menubar .spb-menu { padding: 0 20px 19px; margin: 19px 0 0; z-index: 10; }
 .spb-top-menubar .spb-menu a { font-size: 16px; padding: 0 10px; line-height: 30px; }
 .spb-top-menubar .spb-sign-menu { float: right; padding: 8px 0 0 10px }

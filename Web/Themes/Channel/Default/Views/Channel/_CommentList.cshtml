@@ -20,7 +20,16 @@
 @if (showAfter && showBefor)
 {
     <div class="tn-list-header tn-helper-clearfix">
-        <div class="tn-option"><a href="javascript:void(0)" id="commentIt">我要评论</a></div>
+        <div class="tn-option">
+            @if (UserContext.CurrentUser != null)
+            {
+                <a href="javascript:;" id="commentIt-@commentedObjectId">我要评论</a>
+            }
+            else
+            {
+                <a href="@SiteUrls.Instance().Login(true,SiteUrls.LoginModal._LoginInModal)" plugin="dialog" >我要评论</a>
+            }
+        </div>
         <h4 class="tn-text-heading">评论
             @if (settings.ShowCommentCount)
             {
@@ -122,7 +131,7 @@
                 $CommentsReplies.toggle();
             }
         }));
-        $("#commentIt").click(function () {
+        $("#commentIt-@commentedObjectId").click(function () {
             $("#Body-comment-@commentedObjectId").focus();
         });
     });

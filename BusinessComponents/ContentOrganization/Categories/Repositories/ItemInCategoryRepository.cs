@@ -19,7 +19,6 @@ namespace Tunynet.Common.Repositories
     public class ItemInCategoryRepository : Repository<ItemInCategory>, IItemInCategoryRepository
     {
 
-        ICacheService cacheService = DIContainer.Resolve<ICacheService>();
 
         /// <summary>
         /// 批量为内容项设置类别
@@ -113,6 +112,10 @@ namespace Tunynet.Common.Repositories
                 {
                     RealTimeCacheHelper.IncreaseAreaVersion("CategoryId", categoryId);
                 }
+
+                //更新现有类别的分区缓存
+                RealTimeCacheHelper.IncreaseAreaVersion("CategoryId", 0);
+
                 //item的分区缓存
                 RealTimeCacheHelper.IncreaseAreaVersion("ItemId", itemId);
             }

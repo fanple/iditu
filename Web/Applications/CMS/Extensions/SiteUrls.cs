@@ -216,7 +216,7 @@ namespace Spacebuilder.CMS
         /// </summary>
         public static string CmsTagDetail(this SiteUrls siteUrls, string tagName)
         {
-            return CachedUrlHelper.Action("TagDetail", "ChannelCms", CmsAreaName, new RouteValueDictionary { { "tagName", WebUtility.UrlEncode(tagName.TrimEnd('.')) } });
+            return CachedUrlHelper.Action("TagDetail", "ChannelCms", CmsAreaName, new RouteValueDictionary { { "tagName", tagName.TrimEnd('.') } });
         }
 
         /// <summary>

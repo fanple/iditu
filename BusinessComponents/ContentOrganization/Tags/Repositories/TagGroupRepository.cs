@@ -18,7 +18,6 @@ namespace Tunynet.Common.Repositories
     public class TagGroupRepository : Repository<TagGroup>, ITagGroupRepository
     {
 
-        ICacheService cacheService = DIContainer.Resolve<ICacheService>();
 
 
         /// <summary>

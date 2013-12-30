@@ -220,36 +220,6 @@ namespace Spacebuilder.Microblog
                     MicroblogEntity.ImageUrl = SiteUrls.Instance().ImageUrl(attachments.First(), TenantTypeIds.Instance().Microblog(), ImageSizeTypeKeys.Instance().Big());
                 }
             }
-
-            IUser CurrentUser = UserContext.CurrentUser;
-            if (CurrentUser != null)
-            {
-                //设置当前登录用户对当前页用户的关注情况
-                Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
-                foreach (var user in MicroblogEntities.Select(m => m.User))
-                {
-                    if (user == null)
-                        continue;
-
-                    //如果当前登录用户关注了该用户
-                    if (followService.IsFollowed(CurrentUser.UserId, user.UserId))
-                    {
-                        if (!isCurrentUserFollowDic.ContainsKey(user.UserId))
-                        {
-                            isCurrentUserFollowDic.Add(user.UserId, true);
-                        }
-                    }
-                    else
-                    {
-                        if (!isCurrentUserFollowDic.ContainsKey(user.UserId))
-                        {
-                            isCurrentUserFollowDic.Add(user.UserId, false);
-                        }
-                    }
-                }
-                ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
-            }
-
             return View(MicroblogEntities.AsEnumerable<MicroblogEntity>());
         }
 

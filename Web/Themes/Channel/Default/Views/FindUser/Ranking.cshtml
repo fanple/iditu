@@ -1,9 +1,9 @@
 ﻿@model PagingDataSet<User>
 @{
     Layout = "app-home-2cols";
-    Dictionary<long, bool> isCurrentUserFollowDic = ViewData.Get<Dictionary<long, bool>>("isCurrentUserFollowDic", null);
     Dictionary<long, List<string>> userTags = ViewData.Get<Dictionary<long, List<string>>>("userTagNameDic", null);
     var type = ViewData.Get<SortBy_User>("sortBy", SortBy_User.PreWeekHitTimes);
+    var currentUser = UserContext.CurrentUser;
 }
 @section ContentHeader{
     @Html.Action("_Header", "FindUser", new { menu = "Ranking" })
@@ -61,7 +61,7 @@
                             <div class="tn-list-item-area-left">
                                 @Html.ShowUserAvatar(user, AvatarSizeType.Small, true, HyperLinkTarget._blank)
                             </div>
-                            @if (isCurrentUserFollowDic != null && (UserContext.CurrentUser == null || (UserContext.CurrentUser != null && UserContext.CurrentUser.UserId != user.UserId)))
+                            @if (currentUser != null && !currentUser.IsFollowed(user.UserId))
                             {
                                 <div id="followedDiv" class="tn-list-item-area-right">
                                     @Html.FollowUser(user.UserId, "加关注")

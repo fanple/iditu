@@ -34,6 +34,7 @@ namespace Spacebuilder.Common
         /// <summary>
         /// 评论内容
         /// </summary>
+        [AllowHtml]
         [Display(Name = "内容")]
         [Required(ErrorMessage = "请输入回复")]
         [DataType(DataType.MultilineText)]
@@ -135,6 +136,7 @@ namespace Spacebuilder.Common
             comment.OwnerId = this.OwnerId;
             comment.TenantTypeId = this.TenantTypeId;
             comment.Subject = this.Subject ?? string.Empty;
+            this.Body = WebUtility.HtmlEncode(this.Body);
             comment.Body = new EmotionService().EmoticonTransforms(this.Body);
             comment.IsPrivate = this.IsPrivate;
             comment.ChildCount = 0;

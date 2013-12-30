@@ -25,7 +25,7 @@
                 {
                     <a href="@urlGetter.SectionDetail(Model.SectionId, categoryId: Model.CategoryId)" title="浏览该分类下的帖子">[@Model.Category.CategoryName]</a>
                 }
-                <a href="@urlGetter.ThreadDetail(Model.ThreadId)" title="@Model.Subject">@Model.Subject</a>
+                <a href="@urlGetter.ThreadDetail(Model.ThreadId)" title="@Model.Subject" target="_blank">@Model.Subject</a>
                 @if (Model.IsSticky)
                 { 
                     <span title="置顶" class="tn-icon-colorful tn-icon-colorful-top tn-icon-inline"></span>

@@ -817,32 +817,7 @@ namespace Spacebuilder.Common
             //调用搜索器进行搜索
             UserSearcher userSearcher = (UserSearcher)SearcherFactory.GetSearcher(UserSearcher.CODE);
             PagingDataSet<User> users = userSearcher.Search(query);
-            IUser CurrentUser = UserContext.CurrentUser;
-            if (CurrentUser != null)
-            {
-                //设置当前登录用户对当前页用户的关注情况
-                Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
-                foreach (var user in users)
-                {
-                    //如果当前登录用户关注了该用户
-                    if (followService.IsFollowed(CurrentUser.UserId, user.UserId))
-                    {
-                        if (!isCurrentUserFollowDic.ContainsKey(user.UserId))
-                        {
-                            isCurrentUserFollowDic.Add(user.UserId, true);
-                        }
-                    }
-                    else
-                    {
-                        if (!isCurrentUserFollowDic.ContainsKey(user.UserId))
-                        {
-                            isCurrentUserFollowDic.Add(user.UserId, false);
-                        }
-                    }
-                }
-                ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
-            }
-
+            var CurrentUser = UserContext.CurrentUser;
             //添加到用户搜索历史 
             if (CurrentUser != null)
             {
@@ -886,25 +861,6 @@ namespace Spacebuilder.Common
             //调用搜索器进行搜索
             UserSearcher userSearcher = (UserSearcher)SearcherFactory.GetSearcher(UserSearcher.CODE);
             PagingDataSet<User> users = userSearcher.Search(query);
-            IUser CurrentUser = UserContext.CurrentUser;
-            if (CurrentUser != null)
-            {
-                //设置当前登录用户对当前页用户的关注情况
-                Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
-                foreach (var user in users)
-                {
-                    //如果当前登录用户关注了该用户
-                    if (followService.IsFollowed(CurrentUser.UserId, user.UserId))
-                    {
-                        isCurrentUserFollowDic.Add(user.UserId, true);
-                    }
-                    else
-                    {
-                        isCurrentUserFollowDic.Add(user.UserId, false);
-                    }
-                }
-                ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
-            }
 
             return PartialView(users);
         }
@@ -1883,7 +1839,7 @@ namespace Spacebuilder.Common
         [HttpGet]
         public JsonResult _AtRemindUser()
         {
-            int topNumber = 500;
+            int topNumber = 5000;
 
             IUser currentUser = UserContext.CurrentUser;
             if (currentUser == null)
@@ -2880,8 +2836,6 @@ namespace Spacebuilder.Common
             IEnumerable<long> followedUserIds = followService.GetFollowedUserIds(user.UserId, null, Follow_SortBy.DateCreated_Desc, 1);
             List<User> followedUsers = new List<User>();
 
-            Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
-
             int i = 1;
             foreach (long userId in followedUserIds)
             {
@@ -2891,15 +2845,6 @@ namespace Spacebuilder.Common
 
                 if (i >= 6)
                     break;
-
-                if (followService.IsFollowed(currentUser == null ? 0 : currentUser.UserId, tempUser.UserId))
-                {
-                    isCurrentUserFollowDic[tempUser.UserId] = true;
-                }
-                else
-                {
-                    isCurrentUserFollowDic[tempUser.UserId] = false;
-                }
 
                 followedUsers.Add(tempUser);
                 i++;
@@ -2911,7 +2856,6 @@ namespace Spacebuilder.Common
                 return new EmptyResult();
             }
 
-            ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
             ViewData["FollowUsers"] = followedUsers;
             ViewData["ActivityUserId"] = activity.UserId;
 

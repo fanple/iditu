@@ -22,7 +22,6 @@ namespace Spacebuilder.Group
     /// </summary>
     public class GroupMemberApplyRepository : Repository<GroupMemberApply>, IGroupMemberApplyRepository
     {
-        ICacheService cacheService = DIContainer.Resolve<ICacheService>();
 
         /// <summary>
         /// 获取用户申请状态为待处理的群组ID集合

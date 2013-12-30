@@ -42,12 +42,20 @@ namespace Tunynet.Mvc
                 }
                 var followService = new FollowService();
                 var userService = new UserService();
-                var followedUsers = followService.GetFollows(currentUser.UserId, null, Follow_SortBy.FollowerCount_Desc);
-                htmlHelper.ViewData["data"] = Json.Encode(userService.GetFullUsers(followedUsers.Select(n => n.FollowedUserId).Take(topNumber))
+                var pds = followService.GetFollows(currentUser.UserId, null, Follow_SortBy.FollowerCount_Desc, 1);
+                var list = new List<FollowEntity>(pds);
+                if (pds.PageCount > 1)
+                {
+                    for (int i = 2; i <= pds.PageCount; i++)
+                    {
+                        list.AddRange(followService.GetFollows(currentUser.UserId, null, Follow_SortBy.FollowerCount_Desc, i));
+                    }
+                }
+                htmlHelper.ViewData["data"] = Json.Encode(userService.GetFullUsers(list.Select(n => n.FollowedUserId).Take(topNumber))
                        .Select(n =>
                        {
                            var noteName = string.Empty;
-                           FollowEntity followEntity = followedUsers.FirstOrDefault(f => f.FollowedUserId == n.UserId);
+                           FollowEntity followEntity = list.FirstOrDefault(f => f.FollowedUserId == n.UserId);
                            if (followEntity != null)
                                noteName = followEntity.NoteName;
                            return new

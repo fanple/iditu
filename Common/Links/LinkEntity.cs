@@ -102,12 +102,12 @@ namespace Spacebuilder.Common
         /// <summary>
         ///PropertyNames
         /// </summary>
-        public string PropertyNames { get; set; }
+        public  string PropertyNames { get; set; }
 
         /// <summary>
         ///PropertyValues
         /// </summary>
-        public string PropertyValues { get; set; }
+        public  string PropertyValues { get; set; }
 
         #endregion
 

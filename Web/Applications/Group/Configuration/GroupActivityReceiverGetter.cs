@@ -26,24 +26,32 @@ namespace Spacebuilder.Group
         {
             GroupService groupService = new GroupService();
             IEnumerable<long> userIds = groupService.GetUserIdsOfGroup(activity.OwnerId);
+            bool isPublic = false;
+            var group = groupService.Get(activity.OwnerId);
+            if (group != null)
+                isPublic = group.IsPublic;
             if (userIds == null)
                 return new List<long>();
-            return userIds.Where(n => IsReceiveActivity(activityService, n, activity));
+            return userIds.Where(n => IsReceiveActivity(activityService, isPublic, n, activity));
         }
 
         /// <summary>
         /// 检查用户是否接收动态
         /// </summary>
         /// <param name="activityService"></param>
+        /// <param name="isPublic">群组是否为公开群组</param>
         /// <param name="userId">UserId</param>
         /// <param name="activity">动态</param>
         /// <returns>接收动态返回true，否则返回false</returns>
-        private bool IsReceiveActivity(ActivityService activityService, long userId, Activity activity)
+        private bool IsReceiveActivity(ActivityService activityService, bool isPublic, long userId, Activity activity)
         {
-            ////检查用户是否已在信息发布者的粉丝圈里面
-            //FollowService followService = new FollowService();
-            //if (followService.IsFollowed(userId, activity.UserId))
-            //    return false;
+            if (isPublic)
+            {
+                //检查用户是否已在信息发布者的粉丝圈里面
+                FollowService followService = new FollowService();
+                if (followService.IsFollowed(userId, activity.UserId))
+                    return false;
+            }
             //检查用户是否已屏蔽群组
             if (new UserBlockService().IsBlockedGroup(userId, activity.OwnerId))
                 return false;

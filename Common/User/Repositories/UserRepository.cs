@@ -66,7 +66,7 @@ namespace Spacebuilder.Common
             }
 
             //判断邮箱是否唯一
-            if (GetUserIdByEmail(user.AccountEmail) > 0)
+            if (!string.IsNullOrEmpty(user.AccountEmail)&&GetUserIdByEmail(user.AccountEmail) > 0)
             {
                 userCreateStatus = UserCreateStatus.DuplicateEmailAddress;
                 return null;

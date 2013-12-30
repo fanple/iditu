@@ -326,31 +326,31 @@ namespace Spacebuilder.Common
         /// <summary>
         /// 最近访客控件
         /// </summary>
-        public ActionResult _HomeLastVisitList(string spaceKey, int pageIndex = 1)
+        public ActionResult _HomeLastVisitList(string spaceKey, int pageIndex = 1,int topNumber=9)
         {
             ViewData["spacekey"] = spaceKey;
             ViewData["pageIndex"] = pageIndex;
             long userId = UserIdToUserNameDictionary.GetUserId(spaceKey);
 
-            IEnumerable<Visit> visits = visitService.GetTopVisits(userId, 24);
+            IEnumerable<Visit> visits = visitService.GetTopVisits(userId, topNumber*3);
 
             //实现分页显示
             IEnumerable<Visit>[] visitsArry = new IEnumerable<Visit>[3];
             int pageCount = 1;
 
-            if (visits.Count() > 16)
+            if (visits.Count() > topNumber*2)
             {
                 pageCount = 3;
-                visitsArry[0] = visits.Take(8);
-                visitsArry[1] = visits.Skip(8);
-                visitsArry[2] = visitsArry[1].Skip(8);
-                visitsArry[1] = visitsArry[1].Take(8);
+                visitsArry[0] = visits.Take(topNumber);
+                visitsArry[1] = visits.Skip(topNumber);
+                visitsArry[2] = visitsArry[1].Skip(topNumber);
+                visitsArry[1] = visitsArry[1].Take(topNumber);
             }
-            else if (visits.Count() > 8)
+            else if (visits.Count() > topNumber)
             {
                 pageCount = 2;
-                visitsArry[0] = visits.Take(8);
-                visitsArry[1] = visits.Skip(8);
+                visitsArry[0] = visits.Take(topNumber);
+                visitsArry[1] = visits.Skip(topNumber);
             }
             else
             {

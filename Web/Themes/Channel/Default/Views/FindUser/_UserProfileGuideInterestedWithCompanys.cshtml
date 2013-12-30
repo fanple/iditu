@@ -1,6 +1,5 @@
 ﻿@model  PagingDataSet<User>
 @{
-    Dictionary<long, bool> isCurrentUserFollowDic = ViewData.Get<Dictionary<long, bool>>("isCurrentUserFollowDic", null);
     Dictionary<long, IEnumerable<string>> companyNameDic = ViewData["companyNameDic"] as Dictionary<long, IEnumerable<string>>;
     long pageCount = ViewData.Get<long>("pageCount",0);
 }

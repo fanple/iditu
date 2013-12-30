@@ -5,7 +5,7 @@
 
     string keyword = Request.QueryString.GetString("keyword", string.Empty);
 
-    Dictionary<long, bool> isCurrentUserFollowDic = ViewData.Get<Dictionary<long, bool>>("isCurrentUserFollowDic", null);
+    var currentUser = UserContext.CurrentUser;
     int searchRange = Request.QueryString.Get<int>("searchRange", 0);
 }
 @section SearchForm{
@@ -102,7 +102,7 @@
                             <div class="tn-list-item-area-left">
                                 @Html.ShowUserAvatar(user, AvatarSizeType.Small, true, HyperLinkTarget._blank)
                             </div>
-                            @if (isCurrentUserFollowDic != null && (UserContext.CurrentUser == null || (UserContext.CurrentUser != null && UserContext.CurrentUser.UserId != user.UserId)))
+                            @if (currentUser != null && !currentUser.IsFollowed(user.UserId))
                             {
                                 <div id="followedDiv" class="tn-list-item-area-right">
                                     @Html.FollowUser(user.UserId, "加关注")
@@ -230,11 +230,11 @@
                         if (foundInCache) return;
                         var keyword = self.keyword.val();
                         $.getJSON('@SiteUrls.Instance().UserSearchAutoComplete()', { keyword:keyword }, function (data) {
-                             cache[term] = data;
-                             element.data('autocompleteCache', cache);
+                            cache[term] = data;
+                            element.data('autocompleteCache', cache);
 
-                             response(data);
-                         });
+                            response(data);
+                        });
                     },
                     search: function (event, ui) {                        
                     },
@@ -375,8 +375,8 @@
             }
         };
 
-         userSearcher = new UserSearcher();
-     });
+        userSearcher = new UserSearcher();
+    });
 </script>
 <script type="text/javascript">
     $(document).ready(function () {

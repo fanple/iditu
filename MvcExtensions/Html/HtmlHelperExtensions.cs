@@ -206,12 +206,7 @@ namespace Tunynet.Mvc
                 case IconTypes.Feed:
                     span.AddCssClass("tn-icon-feed");
                     break;
-                //case IconTypes.QuotesBefore:
-                //    span.AddCssClass("tn-icon-quotes-before");
-                //    break;
-                //case IconTypes.Topic:
-                //    span.AddCssClass("tn-icon-topic");
-                //    break;
+                
                 case IconTypes.Label:
                     span.AddCssClass("tn-icon-label");
                     break;
@@ -473,7 +468,9 @@ namespace Tunynet.Mvc
                 case IconTypes.Bar:
                     span.AddCssClass("tn-icon-bar");
                     break;
-                //16*16_small
+                case IconTypes.Wiki:
+                    span.AddCssClass("tn-icon-world");
+                    break;
                 case IconTypes.SmallTriangleUp:
                     span.AddCssClass("tn-smallicon-triangle-up");
                     break;
@@ -871,9 +868,6 @@ namespace Tunynet.Mvc
                 ulBuilder.InnerHtml += ConvertMenuItemToLi(item, htmlHelper, menuItemType, fullName);
             }
             menuContainer.InnerHtml += ulBuilder.ToString();
-            //if (!string.IsNullOrEmpty(newItemPostUrl))
-            //    menuContainer.InnerHtml += @"<div class=""tn-menu-add tn-border-light tn-border-top"">"
-            //    + @"<a href=""javascript:;"" class=""editUserTag"">新建</a></div>";
 
 
             //生成按钮，并附加menuButton插件所需参数
@@ -2280,7 +2274,10 @@ namespace Tunynet.Mvc
         /// 积分商城
         /// </summary>
         PointMall,
-
+        /// <summary>
+        /// 百科
+        /// </summary>
+        Wiki,
         //16*16_small
         /// <summary>
         /// small上箭头

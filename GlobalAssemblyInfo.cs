@@ -19,7 +19,7 @@ using System.Security;
 //
 // 可以指定所有这些值，也可以使用“内部版本号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”:
-[assembly: AssemblyVersion("4.1.0.1")]
+[assembly: AssemblyVersion("4.1.0.2")]
 
 // 指定程序集（DLL文件）的的产品版本号，为NuGet打包指定Semantic Versioning。例如：1.0.0-beta
 // 参考http://docs.nuget.org/docs/reference/versioning

@@ -176,6 +176,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Controllers\Filters\HttpCompressAttribute.cs" />
+    <Compile Include="Controllers\Filters\ModeStateErrorAttribute.cs" />
     <Compile Include="Controllers\Filters\PauseSiteCheckAttribute.cs" />
     <Compile Include="Email\EmailExtensions.cs" />
     <Compile Include="Email\EmailServiceExtensions.cs" />
@@ -542,6 +543,7 @@
     <Compile Include="ViewModels\ManageUsersEditModel.cs" />
     <Compile Include="ViewModels\RoleEditModel.cs" />
     <Compile Include="ViewModels\ImpeachReportCreateModel.cs" />
+    <Compile Include="ViewModels\MassMessagesEditModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

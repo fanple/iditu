@@ -246,15 +246,8 @@ namespace Tunynet.Mvc
             object pageIndexObj = null;
             if (htmlHelper.ViewContext.RouteData.Values.TryGetValue("pageIndex", out pageIndexObj))
             {
-                RouteValueDictionary values = new RouteValueDictionary(htmlHelper.ViewContext.RouteData.Values);
-                var queryString = htmlHelper.ViewContext.HttpContext.Request.QueryString;
-                foreach (var key in queryString.Keys)
-                {
-                    values[key.ToString()] = queryString[key.ToString()];
-                }
-                values["pageIndex"] = pageIndex;
-
-                return UrlHelper.GenerateUrl(null, null, null, values, RouteTable.Routes, htmlHelper.ViewContext.RequestContext, true);
+                htmlHelper.ViewContext.RouteData.Values["pageIndex"] = pageIndex;
+                return UrlHelper.GenerateUrl(null, null, null, htmlHelper.ViewContext.RouteData.Values, RouteTable.Routes, htmlHelper.ViewContext.RequestContext, true);
             }
 
             if (string.IsNullOrEmpty(currentUrl))

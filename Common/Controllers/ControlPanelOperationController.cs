@@ -82,9 +82,9 @@ namespace Spacebuilder.Common
             ViewData["expPoint"] = pointCategories.FirstOrDefault(n => n.CategoryKey.Equals("ExperiencePoints")).CategoryName;
             ViewData["prePoint"] = pointCategories.FirstOrDefault(n => n.CategoryKey.Equals("ReputationPoints")).CategoryName;
 
-            
-            
-            
+
+
+
             bool? isIncome = null;
             DateTime? startDate = null;
             DateTime? endDate = null;
@@ -124,7 +124,7 @@ namespace Spacebuilder.Common
             ViewData["incomeList"] = new SelectList(income.Select(n => new { text = n.Value.ToString(), value = n.Key.ToString().ToLower() }), "value", "text", isIncome);
 
             ViewData["userId"] = userId;
-            
+
             PagingDataSet<PointRecord> pointRecords = pointService.GetPointRecords(userId, isIncome, pointItemName, startDate, endDate, pageSize, pageIndex ?? 1);
 
             Dictionary<long, string> displayNameDic = new Dictionary<long, string>();
@@ -230,7 +230,7 @@ namespace Spacebuilder.Common
                 }
             }
             ViewData["manuals"] = manuals;
-            
+
             PagingDataSet<SearchedTerm> searchedTerms = termService.Gets(searchTypeCode, term, startDate, endDate, isRealtime, pageSize, pageIndex ?? 1);
 
             foreach (var item in searchedTerms)
@@ -334,8 +334,8 @@ namespace Spacebuilder.Common
             IEnumerable<RecommendItemType> recommend = recommendService.GetRecommendTypes(tenantTypeId);
             return View(recommend);
         }
-        
-        
+
+
         /// <summary>
         /// 所属下拉框绑定
         /// </summary>
@@ -345,15 +345,15 @@ namespace Spacebuilder.Common
         {
             TenantTypeService tenantTypeService = new TenantTypeService();
             IEnumerable<TenantType> tenantTypes = tenantTypeService.Gets(MultiTenantServiceKeys.Instance().Recommend());
-            
-            
+
+
             SelectList tenants = new SelectList(tenantTypes, "TenantTypeId", "Name", tenantTypeId);
             return tenants;
         }
 
-        
-        
-        
+
+
+
         /// <summary>
         /// 编辑推荐类别模式框
         /// </summary>
@@ -376,13 +376,13 @@ namespace Spacebuilder.Common
         [HttpPost]
         public ActionResult _EditRecommendType(RecommendItemTypeEditModel recommendItemTypeEditModel)
         {
-            
-            
+
+
             if (!ModelState.IsValid)
                 return View();
             RecommendItemType recommend = recommendItemTypeEditModel.AsRecommendItemType();
-            
-            
+
+
             recommendService.UpdateRecommendType(recommend);
             ViewData["tenantList"] = GetTenantSelectList(recommendItemTypeEditModel.TenantTypeId);
             return Json(new StatusMessageData(StatusMessageType.Success, "更新成功"));
@@ -410,8 +410,8 @@ namespace Spacebuilder.Common
             if (recommendItemTypeCreateModel == null || !ModelState.IsValid)
                 return View();
             RecommendItemType recommend = recommendItemTypeCreateModel.AsRecommendItemType();
-            
-            
+
+
             ViewData["tenantList"] = GetTenantSelectList(recommendItemTypeCreateModel.TenantTypeId);
             RecommendItemType recommendType = recommendService.GetRecommendType(recommendItemTypeCreateModel.TypeId);
             if (recommendType != null)
@@ -487,8 +487,8 @@ namespace Spacebuilder.Common
             return View(pds);
 
         }
-        
-        
+
+
         /// <summary>
         /// 删除推荐内容
         /// </summary>
@@ -518,8 +518,8 @@ namespace Spacebuilder.Common
             return Json(new StatusMessageData(StatusMessageType.Success, "交换成功！"));
         }
 
-        
-        
+
+
         /// <summary>
         /// 管理推荐用户
         /// </summary>
@@ -544,8 +544,8 @@ namespace Spacebuilder.Common
 
         }
 
-        
-        
+
+
         #endregion
 
         #endregion
@@ -1311,7 +1311,7 @@ namespace Spacebuilder.Common
             IEnumerable<Role> roles = roleService.GetRoles();
             ViewData["RoleName"] = new SelectList(roles, "RoleName", "FriendlyRoleName", roleName);
             PagingDataSet<MessageSession> customMessages = messageService.GetCustomerMessages(pageIndex, pageSize, uname, roleName, minRank, maxRank);
-                       
+
             return View(customMessages);
         }
 
@@ -1406,33 +1406,36 @@ namespace Spacebuilder.Common
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult MassMessages(bool isByRole, List<string> roleName, bool isMessage, string messageBody, string messageSubject, int minRank = 0, int maxRank = 0)
+        public ActionResult MassMessages(MassMessagesEditModel model)
         {
             int maxUserRank = 1;
             var ranks = new UserRankService().GetAll();
             if (ranks.Count > 0)
                 maxUserRank = ranks.Max(n => n.Value.Rank);
-            if (minRank > maxRank)
+            if (model.MinRank > model.MaxRank)
             {
                 int temp = 0;
-                temp = maxRank;
-                maxRank = minRank;
-                minRank = temp;
+                temp = model.MaxRank;
+                model.MaxRank = model.MinRank;
+                model.MinRank = temp;
             }
 
-            
+
             IEnumerable<IUser> users = null;
-            if (isByRole)
+            if (model.IsByRole)
             {
-                users = UserService.GetUsers(roleName, 0, 0);
+                List<string> rolenames=new List<string>();
+                if(!string.IsNullOrEmpty(model.RoleName))
+                    rolenames = model.RoleName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                users = UserService.GetUsers(rolenames, 0, 0);
             }
             else
             {
-                users = UserService.GetUsers(new List<string>(), minRank, maxRank);
+                users = UserService.GetUsers(new List<string>(), model.MinRank, model.MaxRank);
             }
             int count = 0;
 
-            if (isMessage)
+            if (model.IsMessage)
             {
                 foreach (var user in users)
                 {
@@ -1444,7 +1447,7 @@ namespace Spacebuilder.Common
                     {
                         message.Receiver = user.DisplayName;
                         message.ReceiverUserId = user.UserId;
-                        message.Body = messageBody;
+                        message.Body = model.Body;
                         bool value = messageService.Create(message);
                         count++;
                     }
@@ -1458,17 +1461,19 @@ namespace Spacebuilder.Common
                 {
                     if (user != null)
                     {
+                        if (!user.IsEmailVerified)
+                            continue;
                         try
                         {
                             MailMessage mail = new MailMessage(emailSettings.AdminEmailAddress, user.AccountEmail);
                             mail.Subject = "客服消息";
-                            mail.Body = messageBody;
+                            mail.Body = model.Body;
                             mail.IsBodyHtml = false;
                             mail.BodyEncoding = Encoding.UTF8;
                             mail.From = new System.Net.Mail.MailAddress(emailSettings.AdminEmailAddress);
                             mail.IsBodyHtml = false;
                             mail.Sender = new System.Net.Mail.MailAddress(emailSettings.AdminEmailAddress);
-                            mail.Subject = messageSubject;
+                            mail.Subject = model.Subject;
                             mail.SubjectEncoding = Encoding.UTF8;
 
                             emailService.Enqueue(mail);
@@ -1485,8 +1490,8 @@ namespace Spacebuilder.Common
             }
 
             if (count > 0)
-                return Json(new StatusMessageData(StatusMessageType.Success, string.Format("成功发送了{0}条{1}", count, isMessage ? "消息" : "邮件")));
-            return Json(new StatusMessageData(StatusMessageType.Error, string.Format("{0}发送失败了！", isMessage ? "消息" : "邮件")));
+                return Json(new StatusMessageData(StatusMessageType.Success, string.Format("成功发送了{0}条{1}", count, model.IsMessage ? "消息" : "邮件")));
+            return Json(new StatusMessageData(StatusMessageType.Error, string.Format("{0}发送失败了！", model.IsMessage ? "消息" : "邮件")));
         }
 
         /// <summary>

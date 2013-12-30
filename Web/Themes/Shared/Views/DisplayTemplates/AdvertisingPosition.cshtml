@@ -4,6 +4,7 @@
 }
 @if (position != null && advertisingsInPosition.Where(n => n.EndDate > DateTime.Now).Count() > 0 && position.IsEnable)
 {
+    
     <div class="spb-biz-cont">
         @foreach (var advertising in advertisingsInPosition)
         {

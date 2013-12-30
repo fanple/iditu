@@ -1,6 +1,6 @@
 ﻿@model  PagingDataSet<User>
 @{    
-    Dictionary<long, bool> isCurrentUserFollowDic = ViewData.Get<Dictionary<long, bool>>("isCurrentUserFollowDic", null);
+    var currentUser = UserContext.CurrentUser;
     Dictionary<long, IEnumerable<string>> tagNameDic = ViewData["tagNameDic"] as Dictionary<long, IEnumerable<string>>;
 }
  
@@ -25,7 +25,7 @@
                                   </div>
                                   <div class="tn-list-item-area-main">
                                     <div class="tn-list-item-row tn-helper-clearfix">
-                                     @if (isCurrentUserFollowDic !=null && (UserContext.CurrentUser == null || (UserContext.CurrentUser != null && UserContext.CurrentUser.UserId != user.UserId)))
+                                    @if (currentUser != null && !currentUser.IsFollowed(user.UserId))
                                       {
                                         <div class="tnc-relationship" id="followedDiv">
                                             @Html.FollowUser(user.UserId,"加关注",followButtonType:FollowButtonTypes.Link)

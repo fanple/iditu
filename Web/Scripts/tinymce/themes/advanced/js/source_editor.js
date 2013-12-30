@@ -9,9 +9,10 @@ function saveContent() {
 function onLoadInit() {
 	tinyMCEPopup.resizeToInnerSize();
 
-	// Remove Gecko spellchecking
+    // Remove Gecko spellchecking
+    //yulf 修复在ie11下的html按钮没有更新和取消的问题
 	if (tinymce.isGecko)
-		document.body.spellcheck = tinyMCEPopup.editor.getParam("gecko_spellcheck");
+		document.body.spellcheck = tinyMCEPopup.editor.getParam("gecko_spellcheck",'','');
 
 	document.getElementById('htmlSource').value = tinyMCEPopup.editor.getContent({source_view : true});
 

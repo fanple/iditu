@@ -20,7 +20,6 @@ namespace Tunynet.Common.Repositories
     public class TagInGroupRepository : Repository<TagInGroup>, ITagInGroupRepository
     {
         int pageSize = 20;
-        ICacheService cacheService = DIContainer.Resolve<ICacheService>();
 
         /// <summary>
         /// 添加标签与分组关联

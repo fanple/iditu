@@ -729,10 +729,16 @@ namespace Spacebuilder.Common
                     user.IsEmailVerified = false;
 
                 IMembershipService iMembershipService = DIContainer.Resolve<IMembershipService>();
+
+                //更新用户名
+                if (!string.IsNullOrEmpty(model.UserName))
+                    user.UserName = model.UserName;
+
                 iMembershipService.UpdateUser(user);
             }
 
             #region 处理隐私设置
+
             Dictionary<string, IEnumerable<UserPrivacySpecifyObject>> userPrivacySpecifyObject = new Dictionary<string, IEnumerable<UserPrivacySpecifyObject>>();
             if (model.PrivacyBirthday == PrivacyStatus.Part)
                 userPrivacySpecifyObject.Add(PrivacyItemKeys.Instance().Birthday(), new List<UserPrivacySpecifyObject> { GetUserPrivacySpecifyObject_AllGroup() });
@@ -753,6 +759,7 @@ namespace Spacebuilder.Common
             userSettings.Add(PrivacyItemKeys.Instance().QQ(), model.PrivacyQQ);
 
             privacyService.UpdateUserPrivacySettings(user.UserId, userSettings, userPrivacySpecifyObject);
+
             #endregion
 
             if (!string.IsNullOrEmpty(errorMessage))

@@ -71,26 +71,6 @@ namespace Spacebuilder.Common
         public ActionResult Ranking(SortBy_User? sortBy = SortBy_User.PreWeekHitTimes, int pageIndex = 1)
         {
             PagingDataSet<User> users = userService.GetPagingUsers(sortBy, pageIndex, 20);
-            IUser CurrentUser = UserContext.CurrentUser;
-            if (CurrentUser != null)
-            {
-                //设置当前登录用户对当前页用户的关注情况
-                Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
-                foreach (var user in users)
-                {
-                    //如果当前登录用户关注了该用户
-                    if (followService.IsFollowed(CurrentUser.UserId, user.UserId))
-                    {
-                        isCurrentUserFollowDic[user.UserId] = true;
-                    }
-                    else
-                    {
-                        isCurrentUserFollowDic[user.UserId] = false;
-                    }
-                }
-
-                ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
-            }
             ViewData["sortBy"] = sortBy;
 
             //查询用户标签
@@ -231,21 +211,6 @@ namespace Spacebuilder.Common
             UserSearcher searcher = (UserSearcher)SearcherFactory.GetSearcher(UserSearcher.CODE);
             PagingDataSet<User> users = searcher.SearchInterestedWithTags(CurrentUser.UserId, pageIndex, pageSize, out tagNameDic);
 
-            //设置当前登录用户对当前页用户的关注情况
-            Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
-            foreach (var user in users)
-            {
-                //如果当前登录用户关注了该用户
-                if (followService.IsFollowed(CurrentUser.UserId, user.UserId))
-                {
-                    isCurrentUserFollowDic.Add(user.UserId, true);
-                }
-                else
-                {
-                    isCurrentUserFollowDic.Add(user.UserId, false);
-                }
-            }
-            ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
             ViewData["tagNameDic"] = tagNameDic;
 
             if (string.IsNullOrEmpty(view))
@@ -276,21 +241,6 @@ namespace Spacebuilder.Common
             UserSearcher searcher = (UserSearcher)SearcherFactory.GetSearcher(UserSearcher.CODE);
             PagingDataSet<User> users = searcher.SearchInterestedWithCompanys(CurrentUser.UserId, pageIndex, pageSize, out companyNameDic);
 
-            //设置当前登录用户对当前页用户的关注情况
-            Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
-            foreach (var user in users)
-            {
-                //如果当前登录用户关注了该用户
-                if (followService.IsFollowed(CurrentUser.UserId, user.UserId))
-                {
-                    isCurrentUserFollowDic.Add(user.UserId, true);
-                }
-                else
-                {
-                    isCurrentUserFollowDic.Add(user.UserId, false);
-                }
-            }
-            ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
             ViewData["companyNameDic"] = companyNameDic;
 
             List<User> userList = new List<User>();
@@ -332,21 +282,6 @@ namespace Spacebuilder.Common
             UserSearcher searcher = (UserSearcher)SearcherFactory.GetSearcher(UserSearcher.CODE);
             PagingDataSet<User> users = searcher.SearchInterestedWithSchools(CurrentUser.UserId, pageIndex, pageSize, out schoolNameDic);
 
-            //设置当前登录用户对当前页用户的关注情况
-            Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
-            foreach (var user in users)
-            {
-                //如果当前登录用户关注了该用户
-                if (followService.IsFollowed(CurrentUser.UserId, user.UserId))
-                {
-                    isCurrentUserFollowDic.Add(user.UserId, true);
-                }
-                else
-                {
-                    isCurrentUserFollowDic.Add(user.UserId, false);
-                }
-            }
-            ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
             ViewData["schoolNameDic"] = schoolNameDic;
 
             if (string.IsNullOrEmpty(view))
@@ -420,23 +355,7 @@ namespace Spacebuilder.Common
                 }
             }
 
-            //设置当前登录用户对当前页用户的关注情况
-            Dictionary<long, bool> isCurrentUserFollowDic = new Dictionary<long, bool>();
-            foreach (User user in userList)
-            {
-                //如果当前登录用户关注了该用户
-                if (followService.IsFollowed(CurrentUser.UserId, user.UserId))
-                {
-                    isCurrentUserFollowDic.Add(user.UserId, true);
-                }
-                else
-                {
-                    isCurrentUserFollowDic.Add(user.UserId, false);
-                }
-            }
-
-
-            ViewData["isCurrentUserFollowDic"] = isCurrentUserFollowDic;
+           
             ViewData["followedUserIdDic"] = followedUserIdDic;
             ViewData["followedUserDic"] = followedUserDic;
             ViewData["companyNameDic"] = companyNameDic;

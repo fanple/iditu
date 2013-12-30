@@ -6,9 +6,9 @@
     <notice templateName="NewComment">
         <a href="@Model.LeadingActorUrl" target="_blank">@Model.LeadingActor</a>评论了你的“<a href="@Model.RelativeObjectUrl" target="_blank">@Model.RelativeObjectName</a>”
     </notice>
-  <notice templateName="PhotoComment">
-    <a href="@Model.LeadingActorUrl" target="_blank">@Model.LeadingActor</a>评论了你的“<a href="@Model.RelativeObjectUrl" plugin="dialog">@Model.RelativeObjectName</a>”
-  </notice>
+    <notice templateName="PhotoComment">
+      <a href="@Model.LeadingActorUrl" target="_blank">@Model.LeadingActor</a>评论了你的“<a href="@Model.RelativeObjectUrl" plugin="dialog">@Model.RelativeObjectName</a>”
+    </notice>
     <notice templateName="ManagerApproved">
         你的<a href="@Model.RelativeObjectUrl" target="_blank">@Model.RelativeObjectName</a>已被管理员批准
     </notice>
@@ -45,9 +45,9 @@
     <notice templateName="AtUser">
         <a href="@Model.LeadingActorUrl" target="_blank">@Model.LeadingActor</a>在@(Model.Owner)：“<a href="@Model.RelativeObjectUrl">@Model.RelativeObjectName</a>”中@@了你
     </notice>
-  <notice templateName="AtUserForPhoto">
-    <a href="@Model.LeadingActorUrl" target="_blank">@Model.LeadingActor</a>在@(Model.Owner)：“<a href="@Model.RelativeObjectUrl" plugin="dialog">@Model.RelativeObjectName</a>”中@@了你
-  </notice>
+    <notice templateName="AtUserForPhoto">
+      <a href="@Model.LeadingActorUrl" target="_blank">@Model.LeadingActor</a>在@(Model.Owner)：“<a href="@Model.RelativeObjectUrl" plugin="dialog">@Model.RelativeObjectName</a>”中@@了你
+    </notice>
     <notice templateName="AutoNoModeratedUser">
         你已被自动解除管制，去看下<a href="@Model.RelativeObjectUrl" target="_blank">@Model.RelativeObjectName</a>
     </notice>
@@ -56,5 +56,8 @@
     </notice>
     <notice templateName="PhotoLabeledNotice">
       <a href="@Model.LeadingActorUrl">@Model.LeadingActor</a>在<a href="@Model.RelativeObjectUrl" plugin="dialog" >照片</a>中圈出了你
+    </notice>
+    <notice templateName="NoEmailNotice">
+      你的邮箱为空，有账号丢失无法找回密码的危险，请<a href="@Model.LeadingActorUrl" target="_blank">完善个人资料</a>
     </notice>
 </notices>

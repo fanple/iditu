@@ -23,7 +23,6 @@ namespace Spacebuilder.Group
     /// </summary>
     public class GroupMemberRepository : Repository<GroupMember>, IGroupMemberRepository
     {
-        ICacheService cacheService = DIContainer.Resolve<ICacheService>();
 
         /// <summary>
         /// 删除群组成员

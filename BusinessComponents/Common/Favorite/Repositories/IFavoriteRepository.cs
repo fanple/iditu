@@ -111,5 +111,12 @@ namespace Tunynet.Common.Repositories
         /// <param name="tenantTypeId">租户类型Id</param>
         /// <returns></returns>
         int GetFavoritedUserCount(long objectId, string tenantTypeId);
+
+        /// <summary>
+        /// 清除某个实体的所有订阅
+        /// </summary>
+        /// <param name="objectId">实体ID</param>
+        /// <returns></returns>
+        bool CleanSubscribesFromObject(long objectId);
     }
 }

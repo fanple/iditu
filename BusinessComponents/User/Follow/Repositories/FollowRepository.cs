@@ -1306,7 +1306,6 @@ namespace Tunynet.Common.Repositories
 
         private int pageSize = 20;
         private int MaxTopNumber = 1000;
-        private int InitNumber = 10;
 
         #endregion 配置属性
     }

@@ -30,7 +30,7 @@
             <div class="spb-microdetail-wrap">
                 @Html.Action("_Detail", "Microblog", new { spaceKey = Model.User.UserName, microblogId = Model.MicroblogId })
                 <div class="tnc-Comment-on" id="comment">
-                    @Html.Action("_Comment", "ChannelMicroblog", new { Area = "Microblog", commentedObjectId = Model.MicroblogId, ownerId = Model.UserId, tenantTypeId = TenantTypeIds.Instance().Group(), originalAuthor = Model.OriginalMicroblog != null ? Model.OriginalMicroblog.Author : string.Empty })
+                    @Html.Action("_Comment", "ChannelMicroblog", new { Area = "Microblog", commentedObjectId = Model.MicroblogId, ownerId = Model.UserId, tenantTypeId = TenantTypeIds.Instance().Microblog(), originalAuthor = Model.OriginalMicroblog != null ? Model.OriginalMicroblog.Author : string.Empty })
                 </div>
             </div>
         </div>

@@ -201,6 +201,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Tunynet.Infrastructure.2.0.0\lib\net40\Tunynet.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Tunynet.Tools.Debugger, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Tunynet.Tools.Debugger.2.0.0\lib\net40\Tunynet.Tools.Debugger.dll</HintPath>
+    </Reference>
     <Reference Include="Yahoo.Yui.Compressor">
       <HintPath>..\packages\YUICompressor.NET.1.7.1.0\lib\net35\Yahoo.Yui.Compressor.dll</HintPath>
     </Reference>
@@ -543,6 +547,7 @@
     <Content Include="Scripts\tinymce\utils\mctabs.js" />
     <Content Include="Scripts\tinymce\utils\validate.js" />
     <Content Include="Scripts\tunynet\jquery.spb.pointMessage.js" />
+    <Content Include="Scripts\tunynet\jquery.spb.SelectContent.js" />
     <Content Include="Scripts\tunynet\jquery.tn.imageAutoResize.js" />
     <Content Include="Scripts\tunynet\jquery.tn.inviteFriend.js" />
     <Content Include="Themes\Channel\Default\Views\Channel\_EmotionSelector.cshtml" />

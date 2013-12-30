@@ -145,7 +145,7 @@ Offical Style for Spacebuilder
 .spb-follow-bar-list .tn-bubble-arrow-top .tn-arrow-b1, .spb-follow-bar-list .tn-bubble-arrow-top .tn-arrow-b2{left:102px;}
 
 /* Members manege */
-.spb-bar-mambers .tn-avatar-item { position: relative; }
+.spb-bar-mambers .tn-avatar-item { position: relative; width: 65px; *width: 68px; }
 .spb-bar-mambers .tn-avatar-item .tn-delete { position: absolute; top: 0; right: 8px; }
 
 /* Create posts */

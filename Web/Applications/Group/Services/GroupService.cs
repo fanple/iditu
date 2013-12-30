@@ -799,7 +799,7 @@ namespace Spacebuilder.Group
             if (member == null)
             {
                 GroupEntity group = groupRepository.Get(groupId);
-                if (group.UserId == userId)
+                if (group!=null && group.UserId == userId)
                     return GroupMemberRole.Owner;
                 return GroupMemberRole.None;
             }

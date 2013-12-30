@@ -26,7 +26,17 @@
                 <div class="tn-cue-highlight tn-corner-all tn-message-box">
                     <span class="tn-helper-left"><span class="tn-icon tn-icon-exclamation"></span></span>
                     <div class="tn-helper-flowfix">
-                        <strong>提示：</strong>您的帐号邮箱尚未激活，激活后才可以使用帐号邮箱登录、接收到邮件形式的站外提醒， @Html.Link("点击激活", SiteUrls.Instance().SendAsyn(Url.SpaceKey()), "点击激活")</div>
+                        @if(!string.IsNullOrEmpty(Model.AccountEmail))
+                        {
+                            <strong>提示：</strong>
+                            <text>您的帐号邮箱尚未激活，激活后才可以使用帐号邮箱登录、接收到邮件形式的站外提醒，</text>
+                            @Html.Link("点击激活", SiteUrls.Instance().SendAsyn(Url.SpaceKey()), "点击激活")<text>。</text>
+                        }
+                        else
+                        {
+                            <text>您没有设置邮箱。请设置邮箱，并且，您有一次修改用户名的机会</text>
+                        }
+                    </div>
                 </div>
             }
             @if (!sendEmailStatus)
@@ -45,19 +55,41 @@
                         @Html.HiddenFor(model => model.UserId)
                         <tr>
                             <th>用户名：</th>
-                            <td><div class="tn-explain"><strong>@userName</strong></div></td>
+                            <td>
+                                @if (string.IsNullOrEmpty(Model.AccountEmail))
+                                {
+                                    @Html.TextBoxFor(n => n.UserName, InputWidthTypes.Long, new RouteValueDictionary { { "autocomplete", "off" } })
+                                    @Html.ValidationMessageFor(n => n.UserName)
+                                }
+                                else
+                                {
+                                <div class="tn-explain"><strong>@userName</strong></div>
+                                }
+                            </td>
                             <td><div class="tn-option">@Html.Link("修改密码", SiteUrls.Instance().ChangePassword(Url.SpaceKey()), "修改密码")</div></td>
                         </tr>
                         <tr>
                             <th>
                                 邮箱：
                             </th>
-                            <td>
-                                @Html.TextBoxFor(model => model.AccountEmail, InputWidthTypes.Long, new RouteValueDictionary { { "id ", "AccountEmail" }, { "ReadOnly ", "ReadOnly" } })
-                                @Html.ValidationMessageFor(model => model.AccountEmail)
-                            </td>
-                            <td><div class="tn-option">@Html.Link("修改", SiteUrls.Instance()._EditUserAccountEmail(Url.SpaceKey()) + "?email=" + Model.AccountEmail, "修改", new { plugin = "dialog" })</div></td>
-                            @Html.HiddenFor(model => model.AccountEmail, new { id = "hiddenEmail" })
+                            @if(!string.IsNullOrEmpty(Model.AccountEmail))
+                            {
+                                <td>
+                                    @Html.TextBoxFor(model => model.AccountEmail, InputWidthTypes.Long, new RouteValueDictionary { { "id ", "AccountEmail" }, { "ReadOnly ", "ReadOnly" } })
+                                    @Html.ValidationMessageFor(model => model.AccountEmail)
+                                </td>
+                                <td>
+                                    <div class="tn-option">@Html.Link("修改", SiteUrls.Instance()._EditUserAccountEmail(Url.SpaceKey()) + "?email=" + Model.AccountEmail, "修改", new { plugin = "dialog" })</div>
+                                </td>
+                                @Html.HiddenFor(model => model.AccountEmail, new { id = "hiddenEmail" })
+                            }
+                            else
+                            {
+                                <td>
+                                    @Html.TextBoxFor(model => model.AccountEmail, InputWidthTypes.Long, new RouteValueDictionary { { "id ", "AccountEmail" } })
+                                    @Html.ValidationMessageFor(model => model.AccountEmail)
+                                </td>
+                            }
                         </tr>
                         @Html.Action("_EditUserProfileDetail", new { spaceKey = Url.SpaceKey() })
                         <tr>
@@ -72,7 +104,9 @@
 </div>
 <script type="text/javascript">
     function OnSuccessCallBack(data) {
-        art.dialog.tips(data.MessageContent, 1.5, data.MessageType);
+        art.dialog.tips(data.MessageContent, 1.5, data.MessageType, function () {
+            window.location.reload();
+        });
     }
     $(document).ready(function () {
         window.location.href = "#StatusMessage";

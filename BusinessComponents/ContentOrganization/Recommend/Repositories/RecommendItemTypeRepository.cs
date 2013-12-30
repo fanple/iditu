@@ -20,7 +20,6 @@ namespace Tunynet.Common.Repositories
     /// </summary>
     public class RecommendItemTypeRepository : Repository<RecommendItemType>, IRecommendItemTypeRepository
     {
-        ICacheService cacheService = DIContainer.Resolve<ICacheService>();
 
         /// <summary>
         /// 

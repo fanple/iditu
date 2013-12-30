@@ -104,14 +104,11 @@ namespace Spacebuilder.Common
         /// <returns></returns>
         public override ThirdUser GetThirdUser(string accessToken, string identification = null)
         {
-            _restClient.BaseUrl = "https://api.renren.com";
+            _restClient.BaseUrl = "https://api.renren.com/v2/user/get";
             _restClient.Authenticator = new CommonOAuthAuthenticator(accessToken);
-            var request = new RestRequest(Method.POST);
+            var request = new RestRequest(Method.GET);
             request.RequestFormat = DataFormat.Json;
-            request.Resource = "restserver.do";
-            request.AddParameter("v", "1.0");
-            request.AddParameter("method", "users.getInfo");
-            request.AddParameter("format", "JSON");
+            request.AddParameter("access_token", accessToken);
             var response = Execute(_restClient, request);
             var renrenUser = Json.Decode(response.Content);
             if (renrenUser.Count == 0)
@@ -120,14 +117,16 @@ namespace Spacebuilder.Common
             if (renrenUser.error_code != null && renrenUser.error_msg != null)
                 return null;
 
+
+            int avatorCount = renrenUser.response.avatar.Length;
             return new ThirdUser
             {
                 AccountTypeKey = AccountType.AccountTypeKey,
-                Identification = renrenUser[0].uid.ToString(),
+                Identification = renrenUser.response.id.ToString(),
                 AccessToken = accessToken,
-                NickName = renrenUser[0].name,
-                Gender = renrenUser.sex == 1 ? GenderType.Male : GenderType.FeMale,
-                UserAvatarUrl = renrenUser[0].headurl ?? string.Empty
+                NickName = renrenUser.response.name,
+                Gender = renrenUser.response.basicInformation.sex == "FEMALE" ? GenderType.Male : GenderType.FeMale,
+                UserAvatarUrl = avatorCount > 0 ? renrenUser.response.avatar[avatorCount - 1].url : string.Empty
             };
         }
 
@@ -139,18 +138,15 @@ namespace Spacebuilder.Common
         /// <param name="identification">身份标识</param>
         public override bool CreateMicroBlog(string accessToken, string content, string identification = null)
         {
-            _restClient.BaseUrl = "https://api.renren.com";
+            _restClient.BaseUrl = "https://api.renren.com/v2/status/put";
             _restClient.Authenticator = new CommonOAuthAuthenticator(accessToken);
             var request = new RestRequest(Method.POST);
             request.RequestFormat = DataFormat.Json;
-            request.Resource = "restserver.do";
-            request.AddParameter("v", "1.0");
-            request.AddParameter("method", "status.set");
-            request.AddParameter("format", "JSON");
-            request.AddParameter("status", content);
+            request.AddParameter("access_token", accessToken);
+            request.AddParameter("content", content);
             var response = Execute(_restClient, request);
             var data = Json.Decode(response.Content);
-            return data.result == 1;
+            return data.response.id >0;
         }
 
         /// <summary>

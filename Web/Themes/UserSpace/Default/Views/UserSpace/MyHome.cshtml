@@ -31,6 +31,18 @@
 }
 <div class="tn-box tn-widget tn-widget-content tn-corner-all spb-my-following">
     <div class="tn-box-content tn-widget-content tn-corner-all">
+        @if(user!=null&&string.IsNullOrEmpty(user.AccountEmail))
+        {
+        <div class="tn-cue-highlight tn-corner-all tn-message-box">
+            <span class="tn-helper-left">
+                <span class="tn-icon tn-icon-exclamation"></span>
+            </span>
+            <div class="tn-helper-flowfix"> 
+                <strong>注意：</strong>
+                你没有填写邮箱信息，存在账号丢失，无法找回的危险。请及时<a href="@SiteUrls.Instance().EditUserProfile(user.UserName)">编辑个人资料</a>
+            </div>
+        </div>
+        }
         @Html.Action("_AnnouncementItem", "Channel", new { displayArea = Announcement_DisplayArea.UserSpace })
         @Html.Action("_MyHomeActivities", new { spaceKey = Url.SpaceKey(), area = "Common" })
     </div>

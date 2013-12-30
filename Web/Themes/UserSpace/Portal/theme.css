@@ -12,6 +12,7 @@ html { overflow-x: hidden; }
 
 /* Global navigation */
 .spb-top-menubar{ height: auto;width:950px; margin:0 auto;}
+.spb-top-menubar .tn-inner { margin-bottom: 10px; }
 .spb-top-menubar .spb-user-menu { float: none; padding: 0 30px 0 0; height: 34px; width: auto; }
 .spb-top-menubar .spb-user-act,
 .spb-top-menubar .spb-sign-menu  { float: right; padding: 8px 0 0 20px; z-index: 20; *width: 180px; }
@@ -78,7 +79,9 @@ html { overflow-x: hidden; }
 #UserSpace_PersonalInformation .tnc-aside,
 #UserSpace_PrivacyHome .tnc-aside,
 #Follow_ListFollowers .tnc-aside,
-#Follow_ListFollowedUsers .tnc-aside { padding-top: 40px; }
+#Follow_ListFollowedUsers .tnc-aside,
+#Follow_listfollowedusers .tnc-aside,
+#Follow_listfollowers .tnc-aside { padding-top: 40px; }
 #UserSpace_SpaceHome .tn-grid-5-19 .tn-grid-14-5 { width: 750px; }
 #UserSpace_PersonalInformation .tn-grid-5-19 .tn-grid-14-5 { width: 750px; overflow: hidden; zoom:1; }
 #UserSpace_SpaceHome .tn-grid-5-19 .tn-grid-14-5 .tn-unit { width: 190px; }

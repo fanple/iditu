@@ -90,6 +90,8 @@ namespace Spacebuilder.Common
         /// 用户名
         /// </summary>
         [Display(Name = "用户名")]
+        [Required(ErrorMessage = "请输入用户名")]
+        [Remote("ValidateThirdUserName", "Account", ErrorMessage = "不合法的用户名")]
         [DataType(DataType.Text)]
         public string UserName { get; set; }
 
