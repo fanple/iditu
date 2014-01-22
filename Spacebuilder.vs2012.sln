@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{382C98B2-7744-4A88-9EF4-E7EB77A0DC86}"
 EndProject
@@ -26,6 +26,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS", "Web\Applications\CMS\CMS.csproj", "{52AD1CC6-BFD6-4297-8F20-232D35144582}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iditu", "Web\Applications\Iditu\Iditu.csproj", "{555C6BE6-8238-41B9-802A-655647F8C310}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2C7B182F-8ACC-4890-ACA7-532F8546FFB5} = {2C7B182F-8ACC-4890-ACA7-532F8546FFB5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
