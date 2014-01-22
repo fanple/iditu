@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microblog", "Web\Applicatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS", "Web\Applications\CMS\CMS.csproj", "{52AD1CC6-BFD6-4297-8F20-232D35144582}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iditu", "Web\Applications\Iditu\Iditu.csproj", "{555C6BE6-8238-41B9-802A-655647F8C310}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{52AD1CC6-BFD6-4297-8F20-232D35144582}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52AD1CC6-BFD6-4297-8F20-232D35144582}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52AD1CC6-BFD6-4297-8F20-232D35144582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{555C6BE6-8238-41B9-802A-655647F8C310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{555C6BE6-8238-41B9-802A-655647F8C310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{555C6BE6-8238-41B9-802A-655647F8C310}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{555C6BE6-8238-41B9-802A-655647F8C310}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{E3CB7639-4B93-478F-BE36-481EEB7E8650} = {382C98B2-7744-4A88-9EF4-E7EB77A0DC86}
 		{05CE5E94-2342-4B8F-8173-B406907969E2} = {382C98B2-7744-4A88-9EF4-E7EB77A0DC86}
 		{52AD1CC6-BFD6-4297-8F20-232D35144582} = {382C98B2-7744-4A88-9EF4-E7EB77A0DC86}
+		{555C6BE6-8238-41B9-802A-655647F8C310} = {382C98B2-7744-4A88-9EF4-E7EB77A0DC86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
