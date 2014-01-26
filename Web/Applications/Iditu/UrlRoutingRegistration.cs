@@ -45,9 +45,21 @@ namespace Spacebuilder.Iditu
 
             if (iisVersion >= 7)
                 extensionForOldIIS = string.Empty;
-
+            /*
             context.MapRoute(routeNamePrefix + "Channel_Index", "HelloWorld/{action}" + extensionForOldIIS,
                 new { action = "Index", Controller = "ChannelHelloWorld", CurrentNavigationId = "109001001" });
+
+			context.MapRoute(
+              "Channel_Iditu", // Route name
+              "iditu" + extensionForOldIIS, // URL with parameters
+              new { controller = "ChannelIditu", action = "Home" } // Parameter defaults
+            );**/
+
+            context.MapRoute(
+              "Channel_Iditu_Home", // Route name
+              "Iditu" + extensionForOldIIS, // URL with parameters
+              new { controller = "ChannelIditu", action = "Home", CurrentNavigationId = "109001001" } // Parameter defaults
+            );
 
         }
     }
