@@ -167,6 +167,7 @@
     <Compile Include="..\..\..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Configuration\IdituApplicationStatisticDataGetter.cs" />
     <Compile Include="Controllers\ChannelIdituController.cs" />
     <Compile Include="EventModules\IdituEventModule.cs" />
     <Compile Include="Extensions\SiteUrls.cs" />

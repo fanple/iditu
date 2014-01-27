@@ -14,6 +14,7 @@ using Tunynet.Common;
 using System.Xml.Linq;
 using Autofac;
 using Tunynet.Globalization;
+using Spacebuilder.Common;
 
 namespace Spacebuilder.Iditu
 {
@@ -76,6 +77,7 @@ namespace Spacebuilder.Iditu
         {
             //注册ResourceAccessor的应用资源
             ResourceAccessor.RegisterApplicationResourceManager(ApplicationId, "Spacebuilder.Iditu.Resources.Resource", typeof(Spacebuilder.Iditu.Resources.Resource).Assembly);
+            containerBuilder.Register(c => new IdituApplicationStatisticDataGetter()).Named<IApplicationStatisticDataGetter>(this.ApplicationKey).SingleInstance();
         }
 
     }

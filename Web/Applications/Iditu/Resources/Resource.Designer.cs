@@ -61,7 +61,7 @@ namespace Spacebuilder.Iditu.Resources {
         }
         
         /// <summary>
-        ///   查找类似 示例应用 的本地化字符串。
+        ///   查找类似 定位 的本地化字符串。
         /// </summary>
         internal static string ApplicationName_Iditu {
             get {
