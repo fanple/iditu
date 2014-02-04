@@ -61,6 +61,12 @@ namespace Spacebuilder.Iditu
               new { controller = "ChannelIditu", action = "Home", CurrentNavigationId = "109001001" } // Parameter defaults
             );
 
+            context.MapRoute(
+                "UserSpace_Iditu_Home", // Route name
+                "u/{SpaceKey}/idituhome" + extensionForOldIIS, // URL with parameters
+                new { controller = "Iditu", action = "Mine", CurrentNavigationId = "109001001" } // Parameter defaults
+            );
+
         }
     }
 }
