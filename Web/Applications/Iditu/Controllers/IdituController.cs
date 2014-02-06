@@ -36,15 +36,19 @@ namespace Spacebuilder.Iditu.Controllers
     [Themed(PresentAreaKeysOfBuiltIn.UserSpace, IsApplication = true)]
     public partial class IdituController : Controller
     {
+        private IUserService userService = DIContainer.Resolve<IUserService>();
 
         /// <summary>
         /// 我的Iditu
         /// </summary>
         [HttpGet]
         [UserSpaceAuthorize]
-        public ActionResult Mine()
+        public ActionResult Mine(string spaceKey)
         {
-            return View();
+            IUser owner = userService.GetUser(spaceKey);
+            ViewData["DisplayName"] = owner.DisplayName;
+            ViewBag.DisplayName = owner.DisplayName;
+            return View(owner);
         }
 
     }
