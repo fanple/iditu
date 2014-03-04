@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -82,6 +83,7 @@ public class LocationOverlayDemo extends Activity {
              */
             app.mBMapManager.init(DemoApplication.strKey,new DemoApplication.MyGeneralListener());
         }
+        requestWindowFeature(Window.FEATURE_NO_TITLE); 
         setContentView(R.layout.activity_locationoverlay);
         CharSequence titleLable="定位功能";
         setTitle(titleLable);
