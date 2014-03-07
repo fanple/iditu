@@ -35,7 +35,7 @@ import com.baidu.platform.comapi.basestruct.GeoPoint;
  * 同时展示如何使用自定义图标绘制并点击时弹出泡泡
  *
  */
-public class LocationOverlayDemo extends Activity {
+public class IdituMainMap extends Activity {
 	private enum E_BUTTON_TYPE {
 		LOC,
 		COMPASS,
@@ -75,19 +75,19 @@ public class LocationOverlayDemo extends Activity {
          * BMapManager是全局的，可为多个MapView共用，它需要地图模块创建前创建，
          * 并在地图地图模块销毁后销毁，只要还有地图模块在使用，BMapManager就不应该销毁
          */
-        DemoApplication app = (DemoApplication)this.getApplication();
+        IdituApplication app = (IdituApplication)this.getApplication();
         if (app.mBMapManager == null) {
             app.mBMapManager = new BMapManager(getApplicationContext());
             /**
              * 如果BMapManager没有初始化则初始化BMapManager
              */
-            app.mBMapManager.init(DemoApplication.strKey,new DemoApplication.MyGeneralListener());
+            app.mBMapManager.init(IdituApplication.strKey,new IdituApplication.MyGeneralListener());
         }
         requestWindowFeature(Window.FEATURE_NO_TITLE); 
-        setContentView(R.layout.activity_locationoverlay);
-        CharSequence titleLable="定位功能";
-        setTitle(titleLable);
-        requestLocButton = (Button)findViewById(R.id.button1);
+        setContentView(R.layout.iditumainmap);
+        //CharSequence titleLable="定位功能";
+        //setTitle(titleLable);
+        requestLocButton = (Button)findViewById(R.id.btLocation);
         mCurBtnType = E_BUTTON_TYPE.LOC;
         OnClickListener btnClickListener = new OnClickListener() {
         	public void onClick(View v) {
@@ -165,7 +165,7 @@ public class LocationOverlayDemo extends Activity {
     public void requestLocClick(){
     	isRequest = true;
         mLocClient.requestLocation();
-        Toast.makeText(LocationOverlayDemo.this, "正在定位……", Toast.LENGTH_SHORT).show();
+        Toast.makeText(IdituMainMap.this, "正在定位……", Toast.LENGTH_SHORT).show();
     }
     /**
      * 修改位置图标
@@ -181,7 +181,7 @@ public class LocationOverlayDemo extends Activity {
 	 * 创建弹出泡泡图层
 	 */
 	public void createPaopao(){
-		viewCache = getLayoutInflater().inflate(R.layout.custom_text_view, null);
+		viewCache = getLayoutInflater().inflate(R.layout.popupbubles, null);
         popupText =(TextView) viewCache.findViewById(R.id.textcache);
         //泡泡点击响应回调
         PopupClickListener popListener = new PopupClickListener(){

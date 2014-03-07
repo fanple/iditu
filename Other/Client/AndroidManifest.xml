@@ -9,13 +9,13 @@
         android:targetSdkVersion="17" />
 
     <application
-        android:name="net.iditu.DemoApplication"
+        android:name="net.iditu.IdituApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="net.iditu.LocationOverlayDemo"
+            android:name="net.iditu.IdituMainMap"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="sensor" >
             <intent-filter>
