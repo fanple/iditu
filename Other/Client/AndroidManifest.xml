@@ -29,7 +29,8 @@
             android:exported="true"
             android:icon="@drawable/ic_launcher"
             android:label="@string/iamhere"
-            android:screenOrientation="sensor" >
+            android:screenOrientation="sensor"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
 
         <service

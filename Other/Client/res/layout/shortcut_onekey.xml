@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+
+    <FrameLayout
+        android:id="@+id/anim_layout"
+        android:layout_width="60.0dip"
+        android:layout_height="60.0dip"
+        android:background="@drawable/shortcut_onekey_bg"
+        android:visibility="invisible" >
+
+        <ImageView
+            android:id="@+id/anim_image"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shortcut_onekey_rotate"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/cover_image"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shortcut_onekey_cover"
+            android:visibility="visible" />
+    </FrameLayout>
+
+</RelativeLayout>
